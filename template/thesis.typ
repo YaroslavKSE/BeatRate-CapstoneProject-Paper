@@ -1,7 +1,7 @@
 //
 // Description: Main document to stitch everything together
 //
-#import "@preview/hei-synd-thesis:0.1.1": *
+#import "local-lib/template-thesis.typ": *
 #import "/metadata.typ": *
 #import "/tail/bibliography.typ": *
 #import "/tail/glossary.typ": *
@@ -29,7 +29,7 @@
 #include("/main/00-acknowledgements.typ")
 #include "/main/01-abstract.typ"
 #include "/main/02-introduction.typ"
-#include "/main/03-analysis.typ"
+#include "/main/03-research.typ"
 #include "/main/04-design.typ"
 #include "/main/05-implementation.typ"
 #include "/main/06-validation.typ"

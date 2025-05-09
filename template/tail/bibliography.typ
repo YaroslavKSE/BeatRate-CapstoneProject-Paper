@@ -1,4 +1,4 @@
-#import "@preview/hei-synd-thesis:0.1.1": *
+#import "/local-lib/template-thesis.typ": *
 #import "/metadata.typ": *
 #pagebreak()
 

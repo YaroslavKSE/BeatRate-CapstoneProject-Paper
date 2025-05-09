@@ -1,18 +1,23 @@
-#import "@preview/hei-synd-thesis:0.1.1": *
+#import "/local-lib/template-thesis.typ": *
 #import "/metadata.typ": *
 #pagebreak()
 = #i18n("design-title", lang:option.lang) <sec:design>
 
 #option-style(type:option.type)[
-  In the design section of your bachelor thesis, you have the opportunity to provide a detailed blueprint of the system you intend to develop or analyze. This section serves as the foundation upon which your implementation will be built. Here's how you can enrich and expand upon this section:
+In this section you turn your requirements into a concrete engineering blueprint. You’ll justify every major architectural choice, visualize structure with C4 diagrams for the first three layers, and map out your runtime topology so that peers can understand—and you can defend—every aspect of your system.
 
-  - *System Overview*: Begin by providing a comprehensive overview of the system under consideration.
-  - *Requirements Specification*: Outline the specific requirements that your system must fulfill.
-  - *Architecture and Design Principles*: Delve into the architectural design of your system, elucidating the underlying principles and design decisions that govern its structure.
-  - *Technology Stack*: Detail the technologies and tools that will be employed in the development of your system.
-  - *Data Management and Storage*: If your system involves the management or manipulation of data, provide insights into how data will be structured, stored, and accessed.
-  - * User Interface (UI) Design*: If applicable, describe the user interface of your system, focusing on usability, accessibility, and user experience (UX) design principles.
-  - *Integration and Interoperability*: Address how your system will integrate with existing systems or external services, if relevant.
++ Clarify how functional and non-functional requirements drive your high-level architecture  
++ List each architectural decision (for example, “We chose microservices to enable independent scaling and deployment”) and explain why it best meets your goals  
++ Include a C4 Context diagram showing your system in its environment (users, external systems, data sources)  
++ Include a C4 Container diagram breaking the system into deployable units (APIs, web front end, background workers, databases) and annotate communication styles and protocols  
++ Include a C4 Component diagram for your core container(s), illustrating key modules, services or libraries and their interactions  
++ Describe your deployment topology: physical or cloud hosts, network zones, load-balancing, failover and backup strategies  
++ Summarize your technology stack, mapping each tool or framework back to a specific container or component and noting any trade-offs (performance, community support, learning curve)  
++ Outline how data flows through the system—including storage models, messaging patterns or API contracts—and note any schema or interface versioning plans  
++ Address cross-cutting concerns (Security, Logging, Monitoring, Scalability) and show where they sit in your topology  
+
+By walking through Requirements → Decisions → Diagrams → Topology, your Design section becomes a rigorous, evidence-backed foundation for the implementation that follows.  
+
 ]
 
 #lorem(50)

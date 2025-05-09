@@ -1,18 +1,21 @@
-#import "@preview/hei-synd-thesis:0.1.1": *
+#import "/local-lib/template-thesis.typ": *
 #import "/metadata.typ": *
 #pagebreak()
-= #i18n("implementation-title", lang:option.lang) <sec:impl>
+= Implementation <sec:impl>
 
 #option-style(type:option.type)[
-  In the implementation phase of your bachelor thesis, you translate the design specifications into tangible, functional artifacts. This section offers insights into the practical execution of your research, detailing the steps taken to realize the proposed system. Here are some ways to enhance and elaborate on this section:
+In this section you translate your component-level designs into working code and systems. Focus on the C4 Component layer and on the details needed to show how your design was realized. Include only the most important code snippets that illustrate key patterns or algorithms, rather than full listings.
 
-  - *Development Methodology*: Describe the methodology or approach employed in the development process.
-  - *Prototyping and Iterative Development*: If applicable, discuss any prototyping or iterative development techniques utilized during the implementation phase.
-  - *Coding Practices and Standards*: Provide insights into the coding practices, standards, and conventions adhered to during development.
-  - *Testing and Quality Assurance*: Detail the testing strategies and quality assurance measures employed to validate the correctness and robustness of the implemented system.
-  - *Performance Optimization*: Address any performance considerations or optimizations made during the implementation phase.
-  - *Deployment and Configuration*: Describe the deployment process and configuration management practices involved in deploying the system to production or testing environments.
-  - *Documentation and Knowledge Transfer*: Highlight the importance of documentation in facilitating knowledge transfer and ensuring the sustainability of the implemented system.
++ Describe the development methodology (for example, Agile or test-driven development) used to guide your implementation  
++ Explain any prototyping or iterative strategies you applied to refine components before full-scale coding  
++ Summarize coding standards, naming conventions and architectural patterns followed in your codebase  
++ Present critical code snippets or configuration templates that highlight how core components were implemented (for example, key classes, interfaces or algorithms)  
++ Detail your testing approach and quality assurance measures (unit tests, integration tests, coverage metrics)  
++ Note any performance optimizations or profiling results for components that were bottlenecks  
++ Outline your deployment and configuration management process for component artifacts (containerization, CI/CD pipelines)  
++ Highlight documentation deliverables (API references, inline comments, architecture decision records) that support future maintenance  
+
+This section demonstrates how each component specification becomes actual, maintainable code—closing the loop from design to implementation.  
 ]
 
 #lorem(50)

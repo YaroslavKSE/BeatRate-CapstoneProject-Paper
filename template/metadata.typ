@@ -7,8 +7,7 @@
   lang : "en",
   //lang : "de",
   //lang : "fr",
-  template    : "thesis",
-  //template    : "midterm"
+  template    : "thesis"
 )
 //-------------------------------------
 // Optional generate titlepage image
@@ -29,18 +28,18 @@
 // Metadata of the document
 //
 #let doc= (
-  title    : "Thesis Template",
+  title    : "Capstone Project Template",
   subtitle : "Longer Subtitle",
   author: (
     name        : "Firstname Lastname",
-    email       : "firstname.lastname@hevs.ch",
+    email       : "firstname.lastname@kse.org.ua",
     degree      : "Bachelor",
-    affiliation : "HEI-Vs",
-    place       : "Sion",
+    affiliation : "KSE",
+    place       : "Kyiv",
     url         : "https://synd.hevs.io",
     signature   : image("/resources/img/signature.svg", width:3cm),
   ),
-  keywords : ("HEI-Vs", "Systems Engineering", "Infotronics", "Thesis", "Template"),
+  keywords : ("KSE", "Software Engineering", "Thesis", "Template"),
   version  : "v0.1.0",
 )
 
@@ -58,14 +57,14 @@
 )
 
 #let professor= (
-  affiliation: "HEI-Vs",
-  name: "Prof. Silvan Zahno",
-  email: "silvan.zahno@hevs.ch",
+  affiliation: "KSE",
+  name: "Isaac Newton, PhD",
+  email: "inewton@kse.org.ua",
 )
 #let expert= (
   affiliation: "Company",
   name: "Expert Name",
-  email: "expert@domain.ch",
+  email: "expert@domain.ua",
 )
 #let school= (
   name: none,
@@ -82,10 +81,9 @@
   school.orientation = "Systèmes industriels"
   school.specialisation = "Infotronics"
 } else {
-  school.name = "University of Applied Sciences Western Switzerland, HES-SO Valais Wallis"
-  school.shortname = "HEI-Vs"
-  school.orientation = "Systems Engineering"
-  school.specialisation = "Infotronics"
+  school.name = "University1 of Applied Sciences Western Switzerland, HES-SO Valais Wallis"
+  school.shortname = "HEI-VEFEs"
+  school.orientation = "Software Engineering & Business Analysis"
 }
 
 #let date = (
@@ -99,13 +97,11 @@
   topleft: if option.lang == "fr" or option.lang == "de" {
     image("/resources/img/logos/hei-defr.svg", width: 6cm)
   } else {
-    image("/resources/img/logos/hei-en.svg", width: 6cm)
+    image("/resources/img/logos/kse_logo_horizontal_primary.png", width: 6cm)
   },
-  topright: image("/resources/img/logos/hesso-logo.svg", width: 4cm),
-  bottomleft: image("/resources/img/logos/hevs-pictogram.svg", width: 4cm),
-  bottomright: image("/resources/img/logos/swiss_universities-valais-excellence-logo.svg", width: 5cm),
-  )
+   topright: image("/resources/img/logos/zeva.svg", width: 5cm),
 )
+
 
 //-------------------------------------
 // Settings
