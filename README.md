@@ -26,5 +26,4 @@ OR you can use Visual Studio Code with the `Tinymist Typst` extension. This will
 
 ## Help
 
-If you need help writting your document look at the [Typst documentation](https://typst.app/docs/) or if ou need more help with the template specifics look at the document [Guide-to-Typst](https://github.com/hei-templates/hei-synd-thesis/blob/main/guide-to-typst.pdf).
-IF you need help writing your thesis look at the document [Guide-to-Thesis](https://github.com/hei-templates/hei-synd-thesis/blob/main/guide-to-thesis.pdf)
+If you need help writting your document look at the [Typst documentation](https://typst.app/docs/) or if ou need more help with the template specifics look at the document [Guide-to-Typst](https://github.com/hei-templates/hei-synd-thesis/blob/main/guide-to-typst.pdf)
