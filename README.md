@@ -2,8 +2,6 @@
 
 This is (currently) unofficial template for a Bachelor thesis at the Kyiv School of Economics.
 
-![](https://github.com/hei-templates/hei-synd-thesis/blob/main/sample.png)
-
 ## Using the template
 
 1. Fork this repository
