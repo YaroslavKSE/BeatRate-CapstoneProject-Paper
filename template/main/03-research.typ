@@ -1,5 +1,5 @@
-#import "/local-lib/template-thesis.typ": *
-#import "/metadata.typ": *
+#import "../local-lib/template-thesis.typ": *
+#import "../metadata.typ": *
 #pagebreak()
 = #i18n("analysis-title", lang:option.lang) <sec:analysis>
 

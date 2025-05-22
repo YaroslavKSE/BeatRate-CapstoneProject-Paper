@@ -1,5 +1,5 @@
 #import "@preview/hei-synd-thesis:0.1.1": *
-#import "/metadata.typ": *
+#import "../metadata.typ": *
 #pagebreak()
 = #i18n("introduction-title", lang:option.lang) <sec:intro>
 
@@ -142,7 +142,7 @@ fn main() {
   caption:"First part of the USS-Rustacean code",
 )
 or directly from a file
-#let code_sample = read("/resources/code/uss-rustacean.rs")
+#let code_sample = read("../resources/code/uss-rustacean.rs")
 #figure(
   sourcecode()[
     #raw(code_sample, lang: "rust")

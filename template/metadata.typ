@@ -28,16 +28,16 @@
 // Metadata of the document
 //
 #let doc= (
-  title    : "Capstone Project Template",
-  subtitle : "Longer Subtitle",
+  title    : "Capstone Project",
+  subtitle : "BeatRate Web Application Paper",
   author: (
-    name        : "Firstname Lastname",
+    name        : "Yaroslav Khomych",
     email       : "firstname.lastname@kse.org.ua",
     degree      : "Bachelor",
     affiliation : "KSE",
     place       : "Kyiv",
     url         : "https://synd.hevs.io",
-    signature   : image("/resources/img/signature.svg", width:3cm),
+    signature   : image("resources/img/signature.svg", width:3cm),
   ),
   keywords : ("KSE", "Software Engineering", "Thesis", "Template"),
   version  : "v0.1.0",
@@ -95,11 +95,11 @@
 #let logos = (
   main: project-logo,
   topleft: if option.lang == "fr" or option.lang == "de" {
-    image("/resources/img/logos/hei-defr.svg", width: 6cm)
+    image("resources/img/logos/hei-defr.svg", width: 6cm)
   } else {
-    image("/resources/img/logos/kse_logo_horizontal_primary.png", width: 6cm)
+    image("resources/img/logos/kse_logo_horizontal_primary.png", width: 6cm)
   },
-   topright: image("/resources/img/logos/zeva.svg", width: 5cm),
+   topright: image("resources/img/logos/zeva.svg", width: 5cm),
 )
 
 
@@ -119,6 +119,6 @@
 #let appendix = false
 #let bib = (
   display : true,
-  path  : "/tail/bibliography.bib",
+  path  : "bibliography.bib",
   style : "ieee", //"apa", "chicago-author-date", "chicago-notes", "mla"
 )

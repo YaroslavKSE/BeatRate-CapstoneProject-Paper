@@ -2,7 +2,7 @@
 // Description: Creating nice looking item list with different icons
 // Author     : Silvan Zahno
 //
-#import "/local-lib/constants.typ": *
+#import "constants.typ": *
 
 #let item-list(
   height: normal,

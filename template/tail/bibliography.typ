@@ -1,11 +1,11 @@
-#import "/local-lib/template-thesis.typ": *
-#import "/metadata.typ": *
+#import "../local-lib/template-thesis.typ": *
+#import "../metadata.typ": *
 #pagebreak()
 
 #let make_bibliography(
   bib:(
     display: true,
-    path: "/tail/bibliography.bib",
+    path: "bibliography.bib",
     style: "ieee", //"apa", "chicago-author-date", "chicago-notes", "mla"
   ),
   title: i18n("bib-title", lang: option.lang),
