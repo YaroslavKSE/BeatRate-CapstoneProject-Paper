@@ -32,11 +32,11 @@
   subtitle : "BeatRate Web Application Paper",
   author: (
     name        : "Yaroslav Khomych",
-    email       : "firstname.lastname@kse.org.ua",
+    email       : "ikhomych@kse.org.ua",
     degree      : "Bachelor",
     affiliation : "KSE",
     place       : "Kyiv",
-    url         : "https://synd.hevs.io",
+    url         : "https://github.com/YaroslavKSE",
     signature   : image("resources/img/signature.svg", width:3cm),
   ),
   keywords : ("KSE", "Software Engineering", "Thesis", "Template"),
