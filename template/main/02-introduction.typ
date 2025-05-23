@@ -3,175 +3,60 @@
 #pagebreak()
 = #i18n("introduction-title", lang:option.lang) <sec:intro>
 
-#option-style(type:option.type)[
-  Your introduction serves to introduce the topic of your Bachelor thesis and to arouse the reader’s curiosity with an overview. Why it is important and how it is structured, we explain here.
+In the rapidly evolving landscape of digital music consumption, where streaming platforms have revolutionized how we discover and consume music, a critical gap exists in the space dedicated to music evaluation, critique, and meaningful social interaction around musical content. This capstone project documents the complete development of *BeatRate* - a Music Evaluation Platform designed to serve as a dedicated social space for music enthusiasts, critics, and artists to rate, review, and discover music while fostering an active community of like-minded individuals.
 
-  You can consider an introduction as a teaser for your bachelor thesis. You arouse interest and give a foretaste by presenting your motivation, your method and the state of research in your introduction.
+Unlike existing streaming platforms that prioritize consumption, BeatRate addresses the absence of a comprehensive platform that combines in-depth music evaluation with robust social features. Drawing inspiration from successful platforms like Letterboxd for films and IMDb for movies, this project represents the creation of a similar ecosystem specifically tailored for the music domain. The platform merges the elements of a social network with the depth of a sophisticated discovery and evaluation tool, enabling users to rate and review music using both traditional and innovative custom grading methods, curate personalized music lists, and engage in meaningful discussions within a diverse community.
 
-  Convince your examiners already in the introduction that your Bachelor thesis will be exciting. If your professor starts reading your thesis with anticipation and interest, the chances of getting good grades are higher.
+This paper chronicles the journey of two software engineering students who, over an intensive three-month development period, transformed a conceptual solution into a fully functional web application comprising over 55,000 lines of code across multiple technologies and architectural layers. The development process encompassed detailed market research, competitor analysis, solution architecture design, and implementation of a scalable cloud-based system using modern software engineering practices.
 
-  Pay particular attention to the following in your introduction:
+== Project Objectives
 
-  - *Introduce the topic* - What characterizes the topic?
-  - *Introduce the goal* - What do you want to achieve with your thesis?
-  - *Make the reader curious* - What motivates the reader to read on?
-  - *Describe the relevance* - Why is this bachelor thesis scientifically relevant?
+The primary objectives of this capstone project are:
 
-  The introduction should have the following content:
+1. To develop a fully functional web application that facilitates music rating, reviewing, and discovery
+2. To implement a dual rating system allowing both simple and comprehensive evaluations
+3. To create robust social features enabling community interaction around musical content
+4. To integrate with established music services (specifically Spotify) to access comprehensive music metadata
+5. To build a scalable architecture capable of supporting growth in both users and features
+6. To deploy the application using modern cloud infrastructure and DevOps practices
 
-  - *Initial situation presentation of the topic* - You introduce the topic with an exciting ‘bait’. You provide initial information on the topic and the object of research and explain the current state of research.
-  - *Relevance of the topic motivation* - You justify the relevance of your topic (scientifically) and place it in the context of your field. In addition, it is often required that you disclose your personal motivation.
-  - *Objectives* - Your introduction should clearly state what the goal of your paper is and what outcome you hope to achieve upon completion of the bachelor thesis.
-  - *Method* - You explain the approach and justify the choice of method.
-  - *Structure of the Bachelor’s thesis* - Finally, you give the reader a general overview of your Bachelor’s thesis by explaining the structure, showing the red thread and how the research question is answered.
-]
+These objectives guided our development process throughout the project lifecycle, from initial research through implementation and deployment.
 
-#infobox()[Welcome to the template’s introductory chapter! Instead of boring you with lorem ipsum, here’s a quick guide to what you can do in Typst and, more specifically, in this template.
+== Relevance and Significance
 
-  Need more? Check out the #link("https://github.com/hei-templates/hei-synd-report/blob/main/guide-to-typst.pdf")[Guide to Typst].]
+This project holds significance in several dimensions:
 
-== Basic markup
+*Technical Relevance*: The development of BeatRate demonstrates the application of modern software engineering practices in creating a complex, feature-rich web application. The project showcases the implementation of microservices architecture, cloud deployment strategies, and integration with third-party APIs within a constrained timeframe.
 
-Typst lets you create bold, italic, or monospaced text with ease. You can also sprinkle in equations like $e^(i pi) + 1 = 0$ or even inline code like #raw(lang:"rust", "fn main() { println!(\"Hello, World!\") }"). And because life is better in color: #text(fill:hei-pink)[pink], #text(fill:hei-blue)[blue], #text(fill:hei-yellow)[yellow], #text(fill:hei-orange)[orange], #text(fill:hei-green)[green], and more! #text(fill:color-fire)[Boldly colorize!]
+*Market Relevance*: Our market research indicates significant growth potential in the music evaluation space, with global music streaming projected to reach US35.45 billion dollars by 2025 (Statista, 2024). The growing emphasis on personalization and community engagement in music consumption supports the need for platforms that facilitate deeper connections between listeners, critics, and artists.
 
-You can also write numbered or unnumbered lists:
-- First item
-- Second item
-  + First Subitem
-  + Second Subitem
-- Third item
+*Academic Relevance*: This capstone project integrates knowledge from various courses in the Software Engineering and Business Analysis curriculum, including software architecture, database design, web development, user experience, market research, and DevOps. It demonstrates our ability to apply theoretical concepts to practical, real-world problems.
 
-Need equations? Sure! They look great as blocks too:
+== Methodology
 
-#figure(
-  [$ sin(x) = x - x^3/(3!) + x^5/(5!) - ... = sum_(n=0)^infinity (-1)^n/((2n+1)!)x^(2n+1) $]
-)
+Our approach to developing BeatRate followed a structured methodology combining thorough research with agile development practices:
 
-== Images
+1. *Discovery Phase*: We conducted extensive research into the domain, analyzing competitor platforms, identifying market opportunities, and defining core requirements.
 
-As they say, a picture is worth a thousand words. Let’s add one:
+2. *Iterative Development*: The implementation followed three month-long development sprints, each with specific goals and deliverables:
+   - Sprint 1: Core architecture and basic functionality
+   - Sprint 2: Advanced features and social components
+   - Sprint 3: Refinement, optimization, and deployment
 
-#figure(
-  project-logo,
-  caption: "Project logo"
-)
+3. *Technology Selection*: We carefully selected our technology stack based on project requirements, team expertise, and industry best practices. The backend uses `C#` with .NET, while the frontend employs React. AWS provides our cloud infrastructure, with specific services chosen to optimize performance, scalability, and cost.
 
-== Tables
+== Structure of this paper
 
-Tables are great for organizing data. From simple to complex, Typst handles them all:
+This thesis is structured to provide both a comprehensive technical reference and an engaging narrative of the development process:
 
-#figure(
-  table(
-    columns: 3,
-    stroke:none,
-    align:(left+horizon),
-    table.header([*Name*], [*Age*], [*City*]),
-    [Albert Einstein], [25], [Bern],
-    [Marie Curie], [22], [Paris],
-    [Isaac Newton], [30], [London],
-  ),
-  caption: "Simple table"
-)
+*Domain Research and Analysis* (Chapter 3) presents our investigation into the music evaluation platform landscape, including detailed competitor analysis and market opportunity identification.
 
-#figure(
-  table(
-    columns: 8,
-    stroke: none,
-    align: center,
-    inset: 3pt,
-    table.vline(x:0, start:1, end:2, stroke:0.5pt),
-    table.vline(x:1, start:1, end:2, stroke:0.5pt),
-    table.vline(x:2, start:1, end:2, stroke:0.5pt),
-    table.vline(x:3, start:1, end:2, stroke:0.5pt),
-    table.vline(x:4, start:1, end:2, stroke:0.5pt),
-    table.vline(x:5, start:1, end:2, stroke:0.5pt),
-    table.vline(x:6, start:1, end:2, stroke:0.5pt),
-    table.vline(x:7, start:1, end:2, stroke:0.5pt),
-    table.vline(x:8, start:1, end:2, stroke:0.5pt),
-    [\[31:27\]], [], [], [\[24:20\]], [\[19:15\]], [\[14:12\]], [\[11:7\]], [\[6:0\]], table.hline(stroke:0.5pt),
-    [funct5], [aq], [rl], [rs2], [rs1], [funct3], [rd], [opcode], table.hline(stroke:0.5pt),
-    [#align(center)[5]], [], [], [#align(center)[5]], [#align(center)[5]], [#align(center)[3]], [#align(center)[5]], [#align(center)[7]],
-  ),
-  caption: [Complex table]
-)
+*System Design and Architecture* (Chapter 4) details our architectural decisions, technology stack selection, and system design rationale, including economic analysis and business process research.
 
-== Boxes
+*Implementation Journey* (Chapter 5) chronicles the three-month development process, documenting each sprint's objectives, challenges, achievements, and retrospective insights.
 
-Highlight key points with these fun boxes (and more):
+*Validation and Testing* (Chapter 6) demonstrates how we verified that our implementation meets initial requirements through comprehensive testing methodologies and user validation.
 
-#table(
-  columns: 2,
-  stroke: none,
-  [ #infobox()[Infobox: For highlighting information.] ],
-  [ #ideabox()[Ideabox: Share a brilliant idea.] ],
-  [ #warningbox()[Warningbox: Proceed with caution!] ],
-  [ #firebox()[Firebox: This is 🔥!] ],
-  [ #rocketbox()[Rocketbox: Shoot for the moon!] ],
-  [ #todobox()[Todobox: Just do it!] ],
-  )
-  #todo[Personnal todo before marking this thesis as final]
+*Conclusions and Future Perspectives* (Chapter 7) reflects on the project's achievements, lessons learned, and potential directions for future development.
 
-== Citations, Acronyms and Glossary
-
-Add citations with `@` like @zahnoDynamicProjectPlanning2023 or #cite(<zahnoDynamicProjectPlanning2023>, supplement:[p.7ff]) (stored in `/tail/bibliography.bib`).
-
-Acronym terms like #gls("it") expand on first use and abbreviate after #gls("it"). Glossary items such as #gls("rust") can also be used to show their description as such: #gls-description("rust"). Acronyms and glossary entries auto-generate at the document’s end (defined in `/tail/glossary.typ`).
-
-#pagebreak()
-
-== Code
-
-Besides writing inline code as such #raw(lang:"rust", "fn main() { println!(\"Hello World\") }") you can also write code blocks like this:
-
-#figure(
-  sourcecode()[
-    ```rust
-fn main() {
-  let ship = Starship::new("USS Rustacean", (0.0, 0.0, 0.0));
-  let destination = (42.0, 13.0, 7.0);
-  let warp = ship.optimal_warp(ship.distance_to(destination));
-
-  println!("🖖 {} traveling to {:?} at Warp {:.2}", ship.name, destination, warp);
-  if warp <= 9.0 {
-    println!("✨ Warp engaged!");
-  } else {
-    println!("⚠️ Warp failed!");
-  }
-}
-```],
-  caption:"First part of the USS-Rustacean code",
-)
-or directly from a file
-#let code_sample = read("../resources/code/uss-rustacean.rs")
-#figure(
-  sourcecode()[
-    #raw(code_sample, lang: "rust")
-  ],
-caption: [Second part of the USS-Rustacean code from `/resources/code/uss-rustacean.rs`]
-)
-
-== Context Problem
-
-
-#gls("hei")
-#gls("rust") #glspl("rust")
-
-
-#cite(<zahnoDynamicProjectPlanning2023>)
-#cite(<zahnoDynamicProjectPlanning2023>, supplement:[p.7ff])
-
-```rust
-fn main() {
-  println!("Hello World!");
-}
-```
-
-#lorem(50)
-
-== Objectives
-
-#lorem(50)
-
-== Structure of this report
-
-#lorem(50)
+Throughout this paper, we aim to demonstrate not only the technical implementation of BeatRate but also the thought process behind our decisions and the evolution of the project from concept to deployment. With over 55,000 lines of code and a robust feature set, BeatRate represents the culmination of our software engineering education and our passion for creating meaningful digital experiences.
