@@ -43,15 +43,19 @@ Our approach to developing BeatRate followed a structured methodology combining 
    - Sprint 2: Advanced features and social components
    - Sprint 3: Refinement, optimization, and deployment
 
-3. *Technology Selection*: We carefully selected our technology stack based on project requirements, team expertise, and industry best practices. The backend uses `C#` with .NET, while the frontend employs React. AWS provides our cloud infrastructure, with specific services chosen to optimize performance, scalability, and cost.
+3. *Technology Selection*: We carefully selected our technology stack based on project requirements, team expertise, and industry best practices. The backend uses C\# with .NET, while the frontend employs React. AWS provides our cloud infrastructure, with specific services chosen to optimize performance, scalability, and cost.
 
 == Structure of this paper
 
 This thesis is structured to provide both a comprehensive technical reference and an engaging narrative of the development process:
 
-*Domain Research and Analysis* (Chapter 3) presents our investigation into the music evaluation platform landscape, including detailed competitor analysis and market opportunity identification.
+*Domain Research and Analysis* (Chapter 3) examines the current music evaluation 
+platform ecosystem through competitor analysis, market research, and identification 
+of gaps that justify our solution.
 
-*System Design and Architecture* (Chapter 4) details our architectural decisions, technology stack selection, and system design rationale, including economic analysis and business process research.
+*System Design and Architecture* (Chapter 4) details our complete solution design, 
+including software architecture decisions, technology stack selection and justification, 
+economic analysis of our platform's viability, and user experience design considerations.
 
 *Implementation Journey* (Chapter 5) chronicles the three-month development process, documenting each sprint's objectives, challenges, achievements, and retrospective insights.
 
