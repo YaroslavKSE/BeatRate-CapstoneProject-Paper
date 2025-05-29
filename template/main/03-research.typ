@@ -16,31 +16,7 @@ Our research was guided by the following key questions:
 - How can we differentiate our solution while building upon successful patterns from other domains?
 - What is the monetization model of the existing platforms? What are their potential earnings?
 
-Based on our problem definition, we established core functional requirements that any music evaluation platform should address:
-
-*Core Rating and Review Functions:*
-- Comprehensive music rating system supporting albums and tracks
-- Flexible rating methodologies (simple scales and complex multi-component evaluation)
-- Detailed review capabilities with rich text support
-- User-generated content management and moderation
-
-*Social and Community Features:*
-- User profiles and preference management
-- Following/follower relationships
-- Community discussions and comment systems
-- Content sharing and social discovery
-
-*Music Discovery and Curation:*
-- Integration with music streaming services
-- Advanced search and filtering capabilities
-- Personalized recommendation systems
-- User-generated lists and collections
-
-*Technical and Usability Requirements:*
-- Modern, intuitive user interface design
-- Mobile-responsive experience
-- Scalable architecture supporting growth
-- Integration with established music ecosystems
+Through systematic analysis of these questions, we establish the functional requirements that inform BeatRate's design and development approach.
 
 == Market Context and Industry Analysis
 
@@ -89,11 +65,11 @@ The platforms show robust organic growth, with Rate Your Music capturing 48.17% 
 
 Through our systematic analysis, we identified distinct categories of platforms based on their architectural approaches and feature focus:
 
-*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on comprehensive cataloging and basic rating functionality (Rate Your Music, n.d.). These platforms typically employ monolithic architectures with extensive relational databases but limited social interaction capabilities.
+*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on complex cataloging and basic rating functionality (Rate Your Music, n.d.). These platforms typically employ monolithic architectures with extensive relational databases but limited social interaction capabilities. RYM utilizes basic web technologies including Google Analytics and PayPal integration, but users frequently report query failures and timeouts, suggesting significant backend infrastructure limitations.
 
-*Aggregator-Style Platforms:* Album of the Year follows an aggregator model similar to Metacritic, distinguishing between critic scores and user scores (Album of the Year, n.d.). This approach emphasizes editorial content alongside user-generated reviews but often lacks comprehensive social features.
+*Aggregator-Style Platforms:* Album of the Year follows an aggregator model similar to Metacritic, distinguishing between critic scores and user scores (Album of the Year, n.d.). This approach emphasizes editorial content alongside user-generated reviews but often lacks social features. AOTY employs a mixed technology stack with JavaScript/jQuery frontend and PHP backend, supplemented by Ruby-based Discourse forums, utilizing multiple web servers including LiteSpeed and Nginx for performance optimization.
 
-*Social-First Modern Platforms:* Musicboard represents the emerging category of platforms that prioritize social interaction and modern user experience design, drawing inspiration from successful platforms in adjacent domains like Letterboxd for films (Musicboard, n.d.).
+*Social-First Modern Platforms:* Musicboard represents the emerging category of platforms that prioritize social interaction and modern user experience design, drawing inspiration from successful platforms in adjacent domains like Letterboxd for films (Musicboard, n.d.). Musicboard employs a modern modular architecture with React Native/Expo for cross-platform mobile development and FastAPI backend, enabling asynchronous capabilities and automatic API documentation generation.
 
 === Detailed Competitor Evaluation
 
@@ -115,9 +91,11 @@ Through our systematic analysis, we identified distinct categories of platforms 
 - Lack of modern features like listening diaries or activity logging
 - Mobile experience is suboptimal
 
-*Architectural Style:* Monolithic, database-heavy approach with limited API integration
+#figure(
+  image("../screenshots/rym-track-page.png", width: 90%),
+  caption: [Rate Your Music track page interface showing cluttered design and poor visual hierarchy],
+) <fig:rym-interface>
 
-*Market Position:* Established leader serving hardcore music enthusiasts and collectors
 
 *Album of the Year (AOTY)*
 
@@ -134,9 +112,10 @@ Through our systematic analysis, we identified distinct categories of platforms 
 - Minimal community interaction capabilities
 - Limited list creation and curation tools
 
-*Architectural Style:* Content aggregation model with editorial focus
-
-*Market Position:* Metacritic-style aggregator serving casual music consumers and critics
+#figure(
+  image("../screenshots/aoty-track-page.png", width: 90%),
+  caption: [Album of the Year interface showing cleaner but uninspiring design with bad optimisation for desktop resulting in smaller items and empty space],
+) <fig:aoty-interface>
 
 *Musicboard*
 
@@ -154,9 +133,11 @@ Through our systematic analysis, we identified distinct categories of platforms 
 - Smaller music database compared to established competitors
 - Less sophisticated search and discovery algorithms
 
-*Architectural Style:* Modern social platform with microservices-oriented features
+#figure(
+  image("../screenshots/musicboard-track-page.png", width: 90%),
+  caption: [Musicboard interface demonstrating modern design principles but with intrusive advertisement placement that disrupts user flow],
+) <fig:musicboard-interface>
 
-*Market Position:* Emerging challenger targeting social-oriented music enthusiasts
 
 === Feature Comparison Matrix
 
@@ -190,7 +171,7 @@ Through our comprehensive analysis, we identified several significant gaps in th
 
 3. *Advanced Discussion Spaces:* Current platforms either lack discussion features entirely or provide only basic commenting. There's an opportunity for structured discussion spaces around specific topics, genres, or musical themes.
 
-4. *Comprehensive Integration:* Most platforms offer limited integration with streaming services. A more comprehensive integration could provide seamless discovery and listening experiences.
+4. *Comprehensive Integration:* Most platforms offer limited integration with streaming services. A more comprehensive integration like importing music habbits and history could provide seamless discovery and better user experience.
 
 5. *Modern User Experience:* Several leading platforms suffer from outdated design and poor user experience, particularly on mobile devices. There's a significant opportunity for platforms that prioritize modern UX/UI principles.
 
@@ -231,19 +212,18 @@ Our research identified three primary user segments with distinct unmet needs:
 
 === Market Positioning Strategy
 
-Based on our comprehensive analysis, we identified a clear market opportunity for BeatRate that combines the strengths of existing platforms while addressing their fundamental limitations:
+Based on our analysis, we identified a clear market opportunity for BeatRate that combines the strengths of existing platforms while addressing their fundamental limitations:
 
 *Differentiation Strategy:*
 - *Customizable Rating Systems:* Unlike any existing platform, BeatRate offers both simple and comprehensive rating methodologies, allowing users to choose their preferred evaluation approach
 - *Enhanced Social Features:* Building upon Musicboard's social foundation while improving community interaction and discovery
 - *Modern UI/UX:* Implementing scalable, cloud-native architecture that existing platforms lack
-- *Comprehensive Integration:* Providing seamless integration with multiple music services and platforms
 
 *Competitive Advantages:*
 - *User Choice:* Flexible rating systems that adapt to user preferences
 - *Community Focus:* Advanced social features that foster meaningful connections
 - *Technical Excellence:* Modern architecture ensuring superior performance and scalability
-- *User Experience:* Contemporary design principles with mobile-first approach
+- *User Experience:* Contemporary design principles which follows best UI/UX and are visually appealing for users
 
 === Requirements Validation
 
