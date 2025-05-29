@@ -29,7 +29,7 @@
 //
 #let doc= (
   title    : "Capstone Project",
-  subtitle : "BeatRate Web Application Paper",
+  subtitle : "BeatRate Web Application",
   // Primary author for document metadata
   author: (
     name        : "Yaroslav Khomych & Maksym Pozdnyakov",
@@ -80,13 +80,13 @@
 
 #let professor= (
   affiliation: "KSE",
-  name: "Isaac Newton, PhD",
-  email: "inewton@kse.org.ua",
+  name: "Vadym Yeremenko, PhD",
+  email: "vyaremenko@kse.org.ua",
 )
 #let expert= (
-  affiliation: "Company", 
-  name: "Expert Name",
-  email: "expert@domain.ua",
+  affiliation: "KSE",
+  name: "Artem Korotenko, PhD",
+  email: "akorotenko@kse.org.ua",
 )
 #let school= (
   name: none,
@@ -94,18 +94,19 @@
   specialisation: none,
 )
 #if option.lang == "de" {
-  school.name = "Hochschule für Ingenieurwissenschaften Wallis, HES-SO"
-  school.orientation = "Systemtechnik"
+  school.name = "Kiewer Hochschule für Wirtschaftswissenschaften"
+  school.orientation = "Wirtschaft"
+  school.shortname = "KHW"
   school.specialisation = "Infotronics"
 } else if option.lang == "fr" {
-  school.name = "Haute École d'Ingénierie du Valais, HES-SO"
-  school.shortname = "HEI-Vs"
-  school.orientation = "Systèmes industriels"
+  school.name = "École d'économie de Kyiv"
+  school.shortname = "EDK"
+  school.orientation = "Économie"
   school.specialisation = "Infotronics"
 } else {
   school.name = "Kyiv School of Economics"
   school.shortname = "KSE"
-  school.orientation = "Software Engineering & Business Analysis"
+  school.orientation = "Economics"
 }
 
 #let date = (
