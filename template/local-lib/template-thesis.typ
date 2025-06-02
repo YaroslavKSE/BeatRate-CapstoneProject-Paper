@@ -278,10 +278,10 @@
   )
 
   // Table of Todos if draft
-  if option.type == "draft" {
-    pagebreak()
-    outline-todos()
-  }
+  // if option.type == "draft" {
+  //   pagebreak()
+  //   outline-todos()
+  // }
 
   // Summary
   if option.template == "thesis" and summary-page != none {
