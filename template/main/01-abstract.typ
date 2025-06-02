@@ -11,12 +11,6 @@
   - Conclusions
 ]
 
-#lorem(50)
-
-#lorem(50)
-
-#lorem(50)
-
 #v(2em)
 #if doc.at("keywords", default:none) != none {[
 
