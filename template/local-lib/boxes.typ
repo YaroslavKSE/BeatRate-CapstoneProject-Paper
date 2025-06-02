@@ -2,7 +2,7 @@
 // Description: Creating nice looking information boxes with different logos
 // Author     : Silvan Zahno
 //
-#import "/local-lib/constants.typ": *
+#import "constants.typ": *
 
 //-------------------------------------
 // Option Style

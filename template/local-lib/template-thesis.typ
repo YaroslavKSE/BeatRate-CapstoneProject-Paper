@@ -2,8 +2,8 @@
 // Description: HEVS Thesis Typst Template
 // Author     : Silvan Zahno
 //
-#import "/local-lib/helpers.typ": *
-#import "/local-lib/pages-thesis.typ": *
+#import "helpers.typ": *
+#import "pages-thesis.typ": *
 
 #let thesis(
   option: (

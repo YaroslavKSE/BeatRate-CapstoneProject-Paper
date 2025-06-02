@@ -28,18 +28,40 @@
 // Metadata of the document
 //
 #let doc= (
-  title    : "Capstone Project Template",
-  subtitle : "Longer Subtitle",
+  title    : "Capstone Project",
+  subtitle : "BeatRate Web Application",
+  // Primary author for document metadata
   author: (
-    name        : "Firstname Lastname",
-    email       : "firstname.lastname@kse.org.ua",
+    name        : "Yaroslav Khomych & Maksym Pozdnyakov",
+    email       : "ikhomych@kse.org.ua",
     degree      : "Bachelor",
     affiliation : "KSE",
     place       : "Kyiv",
-    url         : "https://synd.hevs.io",
-    signature   : image("/resources/img/signature.svg", width:3cm),
+    url         : "https://github.com/YaroslavKSE",
+    signature   : image("resources/img/signature.svg", width:3cm),
   ),
-  keywords : ("KSE", "Software Engineering", "Thesis", "Template"),
+  // All authors for reference
+  authors: (
+    (
+      name        : "Yaroslav Khomych",
+      email       : "ikhomych@kse.org.ua",
+      degree      : "Bachelor",
+      affiliation : "KSE",
+      place       : "Kyiv",
+      url         : "https://github.com/YaroslavKSE",
+      signature   : image("resources/img/signature.svg", width:3cm),
+    ),
+    (
+      name        : "Maksym Pozdnyakov",
+      email       : "mpozdnyakov@kse.org.ua",
+      degree      : "Bachelor",
+      affiliation : "KSE",
+      place       : "Kyiv",
+      url         : "https://github.com/qualia4",
+      signature   : none,
+    )
+  ),
+  keywords : ("KSE", "Software Engineering", "Thesis", "BeatRate", "Web Application"),
   version  : "v0.1.0",
 )
 
@@ -47,24 +69,24 @@
   logo: project-logo,
   //one sentence with max. 240 characters, with spaces.
   objective: [
-    The objective of this thesis is to analyze and improve the performance of a predictive maintenance system in industrial IoT environments by implementing advanced data processing algorithms and evaluating their effectiveness through case studies.
+    The objective of this capstone project is to
   ],
   //summary max. 1200 characters, with spaces.
   content: [
-   This bachelor thesis focuses on the optimization of predictive maintenance systems within industrial IoT environments. Predictive maintenance is a key aspect of modern manufacturing, enabling the anticipation of equipment failures and reducing downtime. The research begins by outlining the theoretical foundations of predictive maintenance, including sensor data acquisition, processing, and analysis. The study then introduces advanced data processing algorithms, such as machine learning techniques, to enhance prediction accuracy and reliability. A case study approach is employed, using real-world industrial data to evaluate the system’s performance. The results demonstrate significant improvements in fault detection rates and decision-making efficiency. The thesis concludes by discussing the implications for industry and providing recommendations for future development. This work aims to contribute to the advancement of smart maintenance systems, supporting industry 4.0 transformation efforts.
+   This capstone project focuses
   ],
-  address: [HES-SO Valais Wallis • rue de l'Industrie 23 • 1950 Sion \ +41 58 606 85 11 • #link("mailto"+"info@hevs.ch")[info\@hevs.ch] • #link("www.hevs.ch")[www.hevs.ch]]
+  address: [KSE • Kyiv School of Economics • 3 Mykoly Shpaka St • Kyiv, Ukraine \ +38 073 248 69 76 • #link("mailto"+"info@kse.ua")[info\@kse.ua] • #link("https://kse.ua")[kse.ua]]
 )
 
 #let professor= (
   affiliation: "KSE",
-  name: "Isaac Newton, PhD",
-  email: "inewton@kse.org.ua",
+  name: "Vadym Yeremenko, PhD",
+  email: "vyaremenko@kse.org.ua",
 )
 #let expert= (
-  affiliation: "Company",
-  name: "Expert Name",
-  email: "expert@domain.ua",
+  affiliation: "KSE",
+  name: "Artem Korotenko, PhD",
+  email: "akorotenko@kse.org.ua",
 )
 #let school= (
   name: none,
@@ -72,18 +94,19 @@
   specialisation: none,
 )
 #if option.lang == "de" {
-  school.name = "Hochschule für Ingenieurwissenschaften Wallis, HES-SO"
-  school.orientation = "Systemtechnik"
+  school.name = "Kiewer Hochschule für Wirtschaftswissenschaften"
+  school.orientation = "Wirtschaft"
+  school.shortname = "KHW"
   school.specialisation = "Infotronics"
 } else if option.lang == "fr" {
-  school.name = "Haute École d'Ingénierie du Valais, HES-SO"
-  school.shortname = "HEI-Vs"
-  school.orientation = "Systèmes industriels"
+  school.name = "École d'économie de Kyiv"
+  school.shortname = "EDK"
+  school.orientation = "Économie"
   school.specialisation = "Infotronics"
 } else {
-  school.name = "University1 of Applied Sciences Western Switzerland, HES-SO Valais Wallis"
-  school.shortname = "HEI-VEFEs"
-  school.orientation = "Software Engineering & Business Analysis"
+  school.name = "Kyiv School of Economics"
+  school.shortname = "KSE"
+  school.orientation = "Economics"
 }
 
 #let date = (
@@ -95,11 +118,11 @@
 #let logos = (
   main: project-logo,
   topleft: if option.lang == "fr" or option.lang == "de" {
-    image("/resources/img/logos/hei-defr.svg", width: 6cm)
+    image("resources/img/logos/hei-defr.svg", width: 6cm)
   } else {
-    image("/resources/img/logos/kse_logo_horizontal_primary.png", width: 6cm)
+    image("resources/img/logos/kse_logo_horizontal_primary.png", width: 6cm)
   },
-   topright: image("/resources/img/logos/zeva.svg", width: 5cm),
+   topright: image("resources/img/logos/zeva.svg", width: 5cm),
 )
 
 
@@ -119,6 +142,6 @@
 #let appendix = false
 #let bib = (
   display : true,
-  path  : "/tail/bibliography.bib",
+  path  : "bibliography.bib",
   style : "ieee", //"apa", "chicago-author-date", "chicago-notes", "mla"
 )

@@ -2,7 +2,7 @@
 // Description: Custom pages for the thesis template
 // Author     : Silvan Zahno
 //
-#import "/local-lib/helpers.typ": *
+#import "helpers.typ": *
 
 #let page-title-thesis(
   title: none,

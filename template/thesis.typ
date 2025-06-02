@@ -2,9 +2,9 @@
 // Description: Main document to stitch everything together
 //
 #import "local-lib/template-thesis.typ": *
-#import "/metadata.typ": *
-#import "/tail/bibliography.typ": *
-#import "/tail/glossary.typ": *
+#import "metadata.typ": *
+#import "tail/bibliography.typ": *
+#import "tail/glossary.typ": *
 #show:make-glossary
 #register-glossary(entry-list)
 
@@ -26,14 +26,14 @@
 //-------------------------------------
 // Content
 //
-#include("/main/00-acknowledgements.typ")
-#include "/main/01-abstract.typ"
-#include "/main/02-introduction.typ"
-#include "/main/03-research.typ"
-#include "/main/04-design.typ"
-#include "/main/05-implementation.typ"
-#include "/main/06-validation.typ"
-#include "/main/07-conclusion.typ"
+#include("main/00-acknowledgements.typ")
+#include "main/01-abstract.typ"
+#include "main/02-introduction.typ"
+#include "main/03-research.typ"
+#include "main/04-design.typ"
+#include "main/05-implementation.typ"
+#include "main/06-validation.typ"
+#include "main/07-conclusion.typ"
 
 //-------------------------------------
 // Glossary
@@ -51,5 +51,5 @@
 #if appendix == true {[
   #counter(heading).update(0)
   #set heading(numbering:"A")
-  #include "/tail/a-appendix.typ"
+  #include "tail/a-appendix.typ"
 ]}

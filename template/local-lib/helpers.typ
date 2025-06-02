@@ -3,9 +3,9 @@
 // Use        : #import "/00-templates/helpers.typ": *
 // Author     : Silvan Zahno
 //
-#import "/local-lib/boxes.typ": *
-#import "/local-lib/constants.typ": *
-#import "/local-lib/items.typ": *
+#import "boxes.typ": *
+#import "constants.typ": *
+#import "items.typ": *
 
 // External Plugins
 // Fancy prettyY print with line numbers and stuff
@@ -18,7 +18,7 @@
 //-------------------------------------
 // Internationalization
 //
-#let langs = json("/local-lib/i18n-thesis.json")
+#let langs = json("i18n-thesis.json")
 #let i18n(
   key,
   lang: "en",

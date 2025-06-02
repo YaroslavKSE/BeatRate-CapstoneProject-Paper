@@ -1,5 +1,5 @@
-#import "/local-lib/template-thesis.typ": *
-#import "/metadata.typ": *
+#import "../local-lib/template-thesis.typ": *
+#import "../metadata.typ": *
 #pagebreak()
 = Validation <sec:validation>
 
