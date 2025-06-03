@@ -60,6 +60,10 @@ API Layer (Controllers, Middleware)
 ├── Domain Layer (Entities, Value Objects, Interfaces)
 └── Infrastructure Layer (Repositories, External Services)
 ```
+#figure(
+  image("../diagrams/clean-architecture.png", width: 90%),
+  caption: [Clean Architecture Diagram used in User, Interaction, and Lists Services],
+) <fig:clean-architecture>
 
 *Key Benefits Realized:*
 - *Feature Development Velocity:* The User Service began with basic authentication and seamlessly expanded to include subscription management, user search, and avatar upload functionality without architectural refactoring
@@ -83,6 +87,12 @@ The service implements sophisticated multi-level caching that prioritizes data a
 2. *MongoDB Validation:* Second-level persistent cache with expiration checking
 3. *Spotify API Fetch:* Fresh data retrieval with automatic caching
 4. *Graceful Degradation:* Returns stale data rather than failure when Spotify is unavailable
+
+#figure(
+  image("../diagrams/lazy-loading-pattern.png", width: 90%),
+  caption: [Lazy loading pattern implementation in Catalog Serice using Redis and Mongo],
+) <fig:lazy-loading-pattern>
+
 
 === Coding Standards and Conventions
 
