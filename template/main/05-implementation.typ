@@ -521,7 +521,7 @@ public class ReviewHotScoreCalculator
 - Background recalculations via a hosted service
 - Optimized recalculation using a dirty-flag pattern
 
-===== Like and Comment System
+* Like and Comment System *
 
 For features such as likes, the service ensures integrity with validation, idempotency checks, and hot score recalculations:
 
@@ -731,126 +731,109 @@ public async Task<PaginatedResult<ListWithItemCount>> GetListsByUserIdAsync(
 
 === Frontend Implementation and Architecture
 
-The frontend application implements modern React patterns with TypeScript for type safety and maintainable component architecture:
+*Overall Description*
 
-```typescript
-// State Management with Zustand
-interface AuthState {
-  user: UserProfile | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  fetchUserProfile: () => Promise<void>;
-}
+The frontend application implements a modern, responsive music rating and review platform built with React and TypeScript, providing a comprehensive user experience across both desktop and mobile devices. The application leverages contemporary web technologies to deliver an intuitive interface for music discovery, rating, and social interaction.
 
-const useAuthStore = create<AuthState>((set, get) => ({
-  user: null,
-  isAuthenticated: AuthService.isAuthenticated(),
-  isLoading: true,
-  
-  login: async (email: string, password: string) => {
-    try {
-      set({ isLoading: true, error: null });
-      await AuthService.login({ email, password });
-      await get().fetchUserProfile();
-      set({ isAuthenticated: true, isLoading: false });
-    } catch (error) {
-      set({ isLoading: false, error: errorMessage });
-      throw error;
-    }
-  }
-}));
-```
+*Technology Stack:*
+- *React with TypeScript:* Single-page application implementation utilizing React's component-based architecture with TypeScript for enhanced type safety and developer experience
+- *Tailwind CSS:* Utility-first CSS framework for consistent, responsive styling and rapid UI development
+- *Lucide React:* Modern icon library providing clean, scalable SVG icons throughout the interface
+- *Color Scheme:* Primary brand color HEX \#7a24ec (purple) creating a distinctive visual identity across all interface elements
 
-*Complex Grading System Frontend Implementation:*
+The frontend communicates with the backend microservices through RESTful APIs, implementing proper authentication flows and state management to ensure seamless user interactions.
 
-The frontend implements sophisticated UI for the complex grading system with recursive calculation display:
+*Additional Features*
 
-```typescript
-export const calculateBlockValue = (
-  component: BlockComponent,
-  values: Record<string, number>,
-  path = ''
-): BlockGradeResult => {
-  const fullPath = path ? `${path}.${component.name}` : component.name;
-  
-  if (component.subComponents.length === 0) {
-    return { name: component.name, currentGrade: 0, maxGrade: 0, minGrade: 0 };
-  }
+*Mobile-First Responsive Design:* The application prioritizes mobile usability with dedicated responsive layouts for all components. Mobile-specific interface adaptations include:
+- Condensed navigation patterns optimized for touch interaction
+- Simplified layouts that prioritize content hierarchy on smaller screens
+- Touch-friendly button sizing and spacing throughout the interface
+- Adaptive grid systems that gracefully scale from mobile to desktop viewports
 
-  let currentValue: number, minValue: number, maxValue: number;
-  
-  // Process first component
-  const firstComponent = component.subComponents[0];
-  if (firstComponent.componentType === 'grade') {
-    currentValue = calculateGradeComponentValue(firstComponent, values, fullPath);
-    minValue = firstComponent.minGrade;
-    maxValue = firstComponent.maxGrade;
-  } else {
-    const blockResult = calculateBlockValue(firstComponent as BlockComponent, values, fullPath);
-    currentValue = blockResult.currentGrade;
-    minValue = blockResult.minGrade;
-    maxValue = blockResult.maxGrade;
-  }
+*Dynamic Content Loading:* Advanced pagination and infinite scroll implementation provides smooth content discovery:
+- *Review Loading:* As users scroll through their diary entries, additional reviews load dynamically without page refreshes, maintaining browsing context
+- *Intelligent Prefetching:* The system preloads preview information for music items in batches, reducing perceived loading times
+- *Optimized Query Strategies:* Database queries implement efficient pagination with configurable page sizes (typically 20 items per load) to balance performance and user experience
 
-  // Apply operations to subsequent components
-  for (let i = 1; i < component.subComponents.length; i++) {
-    const subComponent = component.subComponents[i];
-    const operationCode = getOperation(component.actions[i - 1]);
-    
-    [currentValue, minValue, maxValue] = applyOperation(
-      operationCode,
-      currentValue, minValue, maxValue,
-      nextCurrentValue, nextMinValue, nextMaxValue
-    );
-  }
+*Platform Pages and Interface Design*
 
-  return {
-    name: component.name,
-    currentGrade: Number(currentValue.toFixed(2)),
-    minGrade: Number(minValue.toFixed(2)),
-    maxGrade: Number(maxValue.toFixed(2))
-  };
-};
-```
+*Home Page:* Central landing page featuring personalized content discovery, new music releases carousel, quick search functionality, and activity feed for followed users. Includes animated feature cards highlighting key platform capabilities.
 
-*Frontend Architecture Benefits:*
-- *Type Safety:* TypeScript ensures reliable API contracts and component interfaces
-- *State Management:* Zustand provides lightweight, scalable state management without Redux complexity
-- *Component Composition:* Modular design enables reusable UI components across different features
+*Profile Page:* Comprehensive user profile interface with tabbed navigation including overview statistics, grading methods, music preferences, rating history, social connections (followers/following), and personal settings management.
 
-== Testing Approach and Quality Assurance
+#figure(
+  grid(
+    columns: (30%, 70%),
+    column-gutter: 1em,
+    image("../screenshots/profile-mobile.png", width: 85%, fit: "stretch"),
+    image("../screenshots/profile-desktop.png", width: 100%)
+  ),
+  caption: [Profile Page interface - Mobile (left) displaying condensed header and vertical tab navigation with touch-optimized interface elements, Desktop (right) showing tabbed interface with user statistics, grading methods, and social connections in a wide layout optimized for desktop viewing],
+) <fig:profile-pages>
 
-=== Manual Testing and User Validation
+*Diary Page:* Personal music journal displaying chronologically organized user interactions including ratings, reviews, and all listened tracks. Features dynamic loading as user scrolls through the page.
 
-Our quality assurance approach focused on comprehensive manual testing and user feedback collection:
+#figure(
+  grid(
+    columns: (30%, 70%),
+    column-gutter: 1em,
+    image("../screenshots/diary-mobile.png", width: 85%, fit: "stretch"),
+    image("../screenshots/diary-desktop.png", width: 100%)
+  ),
+  caption: [Diary Page interface - Mobile (left) showing vertical timeline layout optimized for touch navigation, Desktop (right) displaying wider content layout with enhanced readability],
+) <fig:diary-pages>
 
-*Sprint-Based Testing Cycles:*
-- *End-of-Sprint Testing:* Each sprint concluded with systematic manual testing of new features and regression testing of existing functionality
-- *User Interviews:* Conducted both supervised and unsupervised user interviews to validate feature usability and identify pain points
-- *Feature Validation:* Real-user testing sessions to verify that implemented features met the original requirements and user expectations
+*Grading Method Pages:* Interface for creating, viewing, and managing custom rating systems with multi-component criteria, weighting systems and other features.
 
-*Testing Coverage Areas:*
-- *Authentication Flows:* Complete user registration, login, and token refresh cycles
-- *Social Features:* Following, unfollowing, and social interaction functionality
-- *Music Discovery:* Search, browsing, and catalog interaction workflows
-- *Rating Systems:* Both simple and complex grading methodology validation
-- *Cross-Browser Compatibility:* Testing across Chrome, Firefox, Safari, and Edge browsers
-- *Mobile Responsiveness:* Comprehensive testing on various mobile devices and screen sizes
+#figure(
+  image("../screenshots/graiding-method-page.png", width: 80%),
+  caption: [Graiding methods],
+) <fig:interaction-mobile>
 
-*Quality Metrics:*
-While we did not implement automated unit test coverage, our manual testing approach identified and resolved critical issues before each sprint delivery, ensuring stable functionality for user validation sessions.
 
-=== Performance Testing and Optimization
+*Lists Pages:* Music list management interface for creating, editing, and organizing custom collections of tracks and albums. Supports both ranked and unranked lists with drag-and-drop reordering functionality.
 
-*Performance Monitoring Results:*
-Our implementation achieved satisfactory performance characteristics without requiring extensive optimization:
+#figure(
+  grid(
+    columns: (30%, 70%),
+    column-gutter: 1em,
+    image("../screenshots/lists-mobile.png", width: 85%, fit: "stretch"),
+    image("../screenshots/lists-desktop.png", width: 100%)
+  ),
+  caption: [Lists Page interface - Mobile (left) featuring vertical list layout and touch-optimized list management, Desktop (right) displaying grid layout with enhanced preview and creation tools],
+) <fig:lists-pages>
 
-*Pagination Implementation:*
-- *Heavy Read Operations:* All endpoints that return large datasets implement pagination with configurable page sizes
-- *Database Query Optimization:* Efficient querying strategies for user search, catalog browsing, and social feed generation
-- *Response Time Metrics:* Average API response times maintained under 100ms for cached operations and under 300ms for Spotify API-dependent operations
+*Item Page:* Detailed view for individual tracks or albums displaying comprehensive metadata, user ratings distribution, related reviews, and social interaction features including likes and comments. Provides possibility to listen to 30-second song previews from tracklist tab on Album page or header on Song page.
+
+#figure(
+  grid(
+    columns: (30%, 70%),
+    column-gutter: 1em,
+    image("../screenshots/item-page-mobile.png", width: 85%, fit: "stretch"),
+    image("../screenshots/item-page-desktop.png", width: 100%)
+  ),
+  caption: [Item Page interface - Mobile (left) with condensed vertical layout and touch-friendly controls, Desktop (right) showing expanded metadata and tabbed content organization],
+) <fig:item-pages>
+
+*Interaction Page:* Detailed view of specific user interactions (ratings/reviews) with full review text, complex rating breakdowns, social engagement metrics, and contextual information about the rated music item.
+
+#figure(
+  grid(
+    columns: (30%, 70%),
+    column-gutter: 1em,
+    image("../screenshots/interaction-mobile.png", width: 85%, fit: "stretch"),
+    image("../screenshots/interaction-desktop.png", width: 100%)
+  ),
+  caption: [Interaction Page interface - Mobile (left) with vertical content flow and mobile-friendly social interaction buttons, Desktop (right) showing side-by-side layout for review content and music item information],
+) <fig:interaction-pages>
+
+
+*Search Page:* Advanced music discovery interface with real-time search across tracks, albums, and artists. Integrates Spotify catalog data with filtering options across different categories.
+
+
+
+*People Page:* User discovery and social networking interface for finding other users, viewing profiles, managing follow relationships, and browsing community activity.
 
 == Deployment and Configuration Management
 
