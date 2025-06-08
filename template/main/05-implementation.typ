@@ -850,7 +850,7 @@ Our implementation achieved satisfactory performance characteristics without req
 *Pagination Implementation:*
 - *Heavy Read Operations:* All endpoints that return large datasets implement pagination with configurable page sizes
 - *Database Query Optimization:* Efficient querying strategies for user search, catalog browsing, and social feed generation
-- *Response Time Metrics:* Average API response times maintained under 200ms for cached operations and under 800ms for Spotify API-dependent operations
+- *Response Time Metrics:* Average API response times maintained under 100ms for cached operations and under 300ms for Spotify API-dependent operations
 
 == Deployment and Configuration Management
 

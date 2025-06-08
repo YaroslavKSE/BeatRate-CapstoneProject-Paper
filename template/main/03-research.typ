@@ -22,7 +22,7 @@ Through systematic analysis of these questions, we establish the functional requ
 
 === Global Music Streaming Landscape
 
-The music evaluation platform market operates within the broader context of the global music streaming industry, which demonstrates significant growth potential. According to Statista (2024), the global music streaming market is projected to reach US\$35.45 billion in 2025, with a steady compound annual growth rate (CAGR) of 4.90% between 2025 and 2029. The United States maintains its position as the dominant market player, anticipated to generate US\$13,910 million in revenue by 2025.
+The music evaluation platform market operates within the broader context of the global music streaming industry, which demonstrates significant growth potential. According to #cite(<statistaMusicStreaming2024>), the global music streaming market is projected to reach US\$35.45 billion in 2025, with a steady compound annual growth rate (CAGR) of 4.90% between 2025 and 2029. The United States maintains its position as the dominant market player, anticipated to generate US\$13,910 million in revenue by 2025.
 
 User adoption metrics reveal promising expansion trajectories, with the global user base expected to reach 1.2 billion by 2029. This growth is accompanied by evolving consumer preferences, particularly evident in the increasing emphasis on personalization and curated content delivery. The industry's shift toward tailored listening experiences reflects a fundamental transformation in how consumers interact with music streaming services, suggesting opportunities for platforms that facilitate deeper engagement with musical content.
 
@@ -33,15 +33,15 @@ User adoption metrics reveal promising expansion trajectories, with the global u
 
 === Music Rating Platform Market Analysis
 
-Our analysis of the current market leaders reveals significant user engagement and growth potential in the music evaluation sector. Based on comprehensive data from SimilarWeb (2024), we identified three primary platforms that align with our core requirements: Rate Your Music (RYM), Album of the Year (AOTY), and Musicboard.
+Our analysis of the current market leaders reveals significant user engagement and growth potential in the music evaluation sector. Based on comprehensive data from #cite(<similarwebWebsiteAnalysis2024>), we identified three primary platforms that align with our core requirements: Rate Your Music (RYM), Album of the Year (AOTY), and Musicboard.
 
 *Market Leadership and User Engagement:*
 
-Rate Your Music emerges as the clear market leader with approximately 15.02 million monthly visits and 15.02 million unique visitors (SimilarWeb, 2024). The platform demonstrates remarkably strong user engagement metrics with an average of 12.40 pages per visit and a low bounce rate of 24.56%, indicating strong user retention and content engagement.
+Rate Your Music emerges as the clear market leader with approximately 15.02 million monthly visits and 15.02 million unique visitors #cite(<similarwebWebsiteAnalysis2024>). The platform demonstrates remarkably strong user engagement metrics with an average of 12.40 pages per visit and a low bounce rate of 24.56%, indicating strong user retention and content engagement.
 
-Album of the Year follows with 8.2 million monthly visits, showing similar engagement strength with 10.43 pages per visit and a 28.22% bounce rate (SimilarWeb, 2024). These metrics suggest a highly invested user base across the leading platforms.
+Album of the Year follows with 8.2 million monthly visits, showing similar engagement strength with 10.43 pages per visit and a 28.22% bounce rate #cite(<similarwebWebsiteAnalysis2024>). These metrics suggest a highly invested user base across the leading platforms.
 
-Musicboard, as a newer entrant, attracts close to 300,000 monthly visits but represents an emerging competitor with modern design principles and social features that align closely with contemporary user expectations (SimilarWeb, 2024).
+Musicboard, as a newer entrant, attracts close to 300,000 monthly visits but represents an emerging competitor with modern design principles and social features that align closely with contemporary user expectations #cite(<similarwebWebsiteAnalysis2024>).
 
 #figure(
   image("../local-lib/img/traffic-and-engagement.png", width: 80%),
@@ -50,9 +50,9 @@ Musicboard, as a newer entrant, attracts close to 300,000 monthly visits but rep
 
 *Geographic Distribution and Growth Indicators:*
 
-Geographic analysis reveals strong presence in key English-speaking markets, with the United States leading at 43.26% of total traffic, followed by the United Kingdom at 8.10% (SimilarWeb, 2024). This distribution suggests both market concentration and significant opportunity for international expansion.
+Geographic analysis reveals strong presence in key English-speaking markets, with the United States leading at 43.26% of total traffic, followed by the United Kingdom at 8.10% #cite(<similarwebWebsiteAnalysis2024>). This distribution suggests both market concentration and significant opportunity for international expansion.
 
-The platforms show robust organic growth, with Rate Your Music capturing 48.17% of traffic through organic search, indicating strong brand recognition and natural user acquisition patterns. Session durations across platforms average between 5-8 minutes, indicating meaningful user interactions and substantive content consumption (SimilarWeb, 2024).
+The platforms show robust organic growth, with Rate Your Music capturing 48.17% of traffic through organic search, indicating strong brand recognition and natural user acquisition patterns. Session durations across platforms average between 5-8 minutes, indicating meaningful user interactions and substantive content consumption #cite(<similarwebWebsiteAnalysis2024>).
 
 #figure(
   image("../local-lib/img/geographic-distribution.png", width: 80%),
@@ -65,11 +65,11 @@ The platforms show robust organic growth, with Rate Your Music capturing 48.17% 
 
 Through our systematic analysis, we identified distinct categories of platforms based on their architectural approaches and feature focus:
 
-*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on complex cataloging and basic rating functionality (Rate Your Music, n.d.). These platforms typically employ monolithic architectures with extensive relational databases but limited social interaction capabilities. RYM utilizes basic web technologies including Google Analytics and PayPal integration, but users frequently report query failures and timeouts, suggesting significant backend infrastructure limitations.
+*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on complex cataloging and basic rating functionality #cite(<rateYourMusic>). These platforms typically employ monolithic architectures with extensive relational databases but limited social interaction capabilities. RYM utilizes basic web technologies including Google Analytics and PayPal integration, but users frequently report query failures and timeouts, suggesting significant backend infrastructure limitations.
 
-*Aggregator-Style Platforms:* Album of the Year follows an aggregator model similar to Metacritic, distinguishing between critic scores and user scores (Album of the Year, n.d.). This approach emphasizes editorial content alongside user-generated reviews but often lacks social features. AOTY employs a mixed technology stack with JavaScript/jQuery frontend and PHP backend, supplemented by Ruby-based Discourse forums, utilizing multiple web servers including LiteSpeed and Nginx for performance optimization.
+*Aggregator-Style Platforms:* Album of the Year follows an aggregator model similar to Metacritic, distinguishing between critic scores and user scores #cite(<albumOfTheYear>). This approach emphasizes editorial content alongside user-generated reviews but often lacks social features. AOTY employs a mixed technology stack with JavaScript/jQuery frontend and PHP backend, supplemented by Ruby-based Discourse forums, utilizing multiple web servers including LiteSpeed and Nginx for performance optimization.
 
-*Social-First Modern Platforms:* Musicboard represents the emerging category of platforms that prioritize social interaction and modern user experience design, drawing inspiration from successful platforms in adjacent domains like Letterboxd for films (Musicboard, n.d.). Musicboard employs a modern modular architecture with React Native/Expo for cross-platform mobile development and FastAPI backend, enabling asynchronous capabilities and automatic API documentation generation.
+*Social-First Modern Platforms:* Musicboard represents the emerging category of platforms that prioritize social interaction and modern user experience design, drawing inspiration from successful platforms in adjacent domains like Letterboxd for films #cite(<musicboard>). Musicboard employs a modern modular architecture with React Native/Expo for cross-platform mobile development and FastAPI backend, enabling asynchronous capabilities and automatic API documentation generation.
 
 === Detailed Competitor Evaluation
 
@@ -248,7 +248,7 @@ Our domain research validates the core requirements initially identified for Bea
 
 The analysis of existing platforms reveals diverse approaches to monetization, ranging from advertising-only models to hybrid subscription services. Understanding these revenue streams provides crucial insights into the financial viability of the music evaluation platform market and informs strategic decisions for BeatRate's business model.
 
-*Rate Your Music (RYM) - Advertising-Only Model:* RYM operates exclusively on advertising revenue without subscription or donation options. With 15.02 million monthly visits generating approximately 186.3 million page views per month, using industry-standard RPM rates of \$1-3 for music websites (Rosen, 2025), RYM's estimated monthly ad revenue ranges from \$186,300 to \$558,900, translating to an annual revenue estimate of \$2.2M to \$6.7M. This demonstrates the financial viability of the music evaluation market while highlighting potential limitations in revenue diversification.
+*Rate Your Music (RYM) - Advertising-Only Model:* RYM operates exclusively on advertising revenue without subscription or donation options. With 15.02 million monthly visits generating approximately 186.3 million page views per month, using industry-standard RPM rates of \$1-3 for music websites #cite(<rosenPageRPM2025>), RYM's estimated monthly ad revenue ranges from \$186,300 to \$558,900, translating to an annual revenue estimate of \$2.2M to \$6.7M. This demonstrates the financial viability of the music evaluation market while highlighting potential limitations in revenue diversification.
 
 *Album of the Year (AOTY) - Hybrid Model:* AOTY combines advertising revenue with optional donations, offering an ad-free experience for \$11.99 annually. With 8.271 million monthly visits generating 86.30 million page views, estimated monthly ad revenue ranges from \$86,300 to \$258,900. Assuming a 1% conversion rate among unique visitors, donation revenue contributes an additional \$218,937 per year, resulting in total annual revenue estimates of \$1.47M to \$3.52M.
 
