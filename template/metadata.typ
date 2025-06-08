@@ -58,10 +58,10 @@
       affiliation : "KSE",
       place       : "Kyiv",
       url         : "https://github.com/qualia4",
-      signature   : none,
+      signature   : image("resources/img/signature.svg", width:3cm),
     )
   ),
-  keywords : ("KSE", "Software Engineering", "Thesis", "BeatRate", "Web Application"),
+  keywords : ("KSE", "Software Engineering", "BeatRate", "Web Application", "Music Evaluation Platform", "Social Music Discovery", "Microservices Architecture", "Spotify API Integration", "Rating Systems", "Cloud Deployment"),
   version  : "v0.1.0",
 )
 
@@ -106,7 +106,7 @@
 } else {
   school.name = "Kyiv School of Economics"
   school.shortname = "KSE"
-  school.orientation = "Economics"
+  // school.orientation = "Economics"
 }
 
 #let date = (
@@ -138,7 +138,7 @@
   maxdepth: 3,
 )
 
-#let gloss    = true
+#let gloss    = false
 #let appendix = false
 #let bib = (
   display : true,

@@ -306,7 +306,7 @@
   }
 
   // Report info
-  pagebreak()
+  // pagebreak()
   page-reportinfo(
     author: doc.author,
     date: date.today,
