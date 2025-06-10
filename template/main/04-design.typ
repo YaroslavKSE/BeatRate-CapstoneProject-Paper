@@ -60,7 +60,7 @@ The container diagram reveals our microservices architecture with clear separati
 
 #figure(
   image("../diagrams/container-diagram.png", width: 100%),
-  caption: [Container Diagram - Microservices Architecture and Data Flow],
+  caption: [Container Diagram - Microservices Architecture and Data Flow [High-resoultion version available at: https://drive.google.com/file/d/1IpK76w3QS1o2COeHDZWpZ1ZB1cufoe1r/view?usp=sharing]],
 ) <fig:container-diagram>
 
 *Service Responsibilities:*
@@ -128,7 +128,7 @@ The Music Interaction Service represents our most architecturally complex compon
 
 #figure(
   image("../diagrams/component-diagram.png", width: 100%),
-  caption: [Component Diagram - Music Interaction Service Internal Architecture],
+  caption: [Component Diagram - Music Interaction Service Internal Architecture [High-resoultion version available at: https://drive.google.com/file/d/1zKq4E8UJJeHFssSU1O4S15vTKT2oFJy7/view?usp=sharing]],
 ) <fig:component-diagram>
 
 === Sophisticated Rating System Architecture
@@ -180,7 +180,7 @@ Our AWS-based infrastructure architecture provides scalable, cost-effective depl
 
 #figure(
   image("../diagrams/aws-cloud-architecture.png", width: 100%),
-  caption: [AWS Cloud Deployment Architecture - Production Environment],
+  caption: [AWS Cloud Deployment Architecture - Production Environment [High-res version available at: https://drive.google.com/file/d/10XswGh9He38HPZo4H2Zl4HVHdzKmFdLW/view?usp=drive_link]],
 ) <fig:cloud-architecture>
 
 === Infrastructure Architecture Justification
