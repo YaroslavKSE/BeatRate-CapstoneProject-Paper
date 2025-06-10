@@ -80,12 +80,12 @@
 
 #let professor= (
   affiliation: "KSE",
-  name: "Vadym Yeremenko, PhD",
+  name: "Vadym Yaremenko, Lead Software Engineer",
   email: "vyaremenko@kse.org.ua",
 )
 #let expert= (
   affiliation: "KSE",
-  name: "Artem Korotenko, PhD",
+  name: "Artem Korotenko, Technical Lead",
   email: "akorotenko@kse.org.ua",
 )
 #let school= (
