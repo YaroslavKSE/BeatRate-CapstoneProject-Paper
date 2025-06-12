@@ -47,7 +47,7 @@ Before full-scale implementation, we applied systematic prototyping strategies t
 - *Complex Grading System:* Created algorithmic prototypes for hierarchical grade calculations before full implementation
 
 *Integration Testing:*
-- *Spotify API Integration:* Developed test clients to validate rate limiting, error handling, and data transformation patterns
+- *Spotify API Integration:* Developed test client to validate rate limiting, error handling, and data transformation patterns
 - *Database Schema Validation:* Created test migrations and seed data to verify entity relationships and query performance
 
 This prototyping approach proved invaluable in identifying architectural adjustments early in the development process, particularly in refining the balance between Clean Architecture complexity and development velocity.
@@ -85,7 +85,7 @@ API Layer (Controllers, Error Handling)
 ```
 
 *Lazy Loading Cache-Aside Pattern Implementation:*
-The service implements sophisticated multi-level caching that prioritizes data availability:
+The service implements multi-level caching that prioritizes data availability:
 
 1. *Redis Check:* First-level cache for immediate response
 2. *MongoDB Validation:* Second-level persistent cache with expiration checking
@@ -172,7 +172,7 @@ public class User
 
 ==== Database Schema Design and Entity Relationships
 
-The User Service implements a sophisticated relational database design that supports complex social interactions while maintaining referential integrity and query performance.
+The User Service implements a relational database design that supports complex social interactions while maintaining referential integrity and query performance.
 
 #figure(
   image("../diagrams/UserService_Data.png", width: 90%),
@@ -235,7 +235,7 @@ This enables users to maintain favorite artists, albums, and tracks with efficie
 
 ==== Auth0 Integration Architecture and External Identity Management
 
-The User Service implements sophisticated external authentication integration with Auth0 while maintaining clean architecture principles and domain integrity.
+The User Service implements external authentication integration with Auth0 while maintaining clean architecture principles and domain integrity.
 
 *Auth0Id as Domain Concept:*
 
@@ -363,45 +363,148 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 ```
 
 
-=== Music Catalog Service: Intelligent Music Catalog Gateway
+=== Music Catalog Service: Intelligent Music Gateway Implementation
 
-The Catalog Service implements sophisticated fallback strategies ensuring data availability even when external services fail:
+#infobox[
+*Collaborative Implementation Note:* This section details the Music Catalog Service implementation developed by Yaroslav Khomych, demonstrating sophisticated gateway patterns, multi-level caching strategies, and resilient fallback mechanisms for external API integration.
+]
+
+The Music Catalog Service functions as an *Intelligent Music Gateway* that provides seamless access to Spotify's comprehensive music database while ensuring high availability through intelligent caching and local fallback mechanisms. Rather than serving as a simple proxy, this service implements intelligent data management strategies that prioritize user experience and system resilience over strict data freshness.
+
+==== Gateway Architecture and Spotify Integration
+
+The service acts as a smart intermediary between client applications and Spotify's Web API, implementing robust integration patterns that handle the complexities of external service communication while providing a simplified interface to consuming applications.
+
+*Spotify API Integration Implementation:*
+
+The core integration demonstrates sophisticated token management and error handling patterns:
+
+```cs
+public async Task<TokenResult> GetAccessTokenAsync()
+{
+    // Respect failure mode and backoff periods
+    if (_isInFailureMode)
+    {
+        var timeSinceLastFailure = DateTime.UtcNow - _lastFailureTime;
+        if (timeSinceLastFailure < _retryBackoffPeriod)
+        {
+            _logger.LogWarning("Spotify token service in failure mode. Next retry in {TimeRemaining} seconds", 
+                (_retryBackoffPeriod - timeSinceLastFailure).TotalSeconds);
+            return TokenResult.Failure();
+        }
+        _logger.LogInformation("Retry period elapsed, attempting Spotify token refresh");
+        _isInFailureMode = false;
+    }
+
+    // Return existing valid token to minimize API calls
+    if (DateTime.UtcNow < _tokenExpiryTime && !string.IsNullOrEmpty(_accessToken))
+    {
+        return TokenResult.Success(_accessToken);
+    }
+
+    await _semaphore.WaitAsync();
+    try
+    {
+        var response = await tokenClient.SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogError("Failed to get Spotify token. Status {Status}", response.StatusCode);
+            _isInFailureMode = true;
+            _lastFailureTime = DateTime.UtcNow;
+            return TokenResult.Failure();
+        }
+
+        var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(responseContent);
+        _accessToken = tokenResponse.AccessToken;
+        _tokenExpiryTime = DateTime.UtcNow.AddSeconds(tokenResponse.ExpiresIn - 60); // 60s buffer
+        _isInFailureMode = false;
+        
+        return TokenResult.Success(_accessToken);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Exception occurred during Spotify token acquisition");
+        _isInFailureMode = true;
+        _lastFailureTime = DateTime.UtcNow;
+        return TokenResult.Failure();
+    }
+    finally
+    {
+        _semaphore.Release();
+    }
+}
+```
+
+*Intelligent Rate Limiting and Request Management:*
+
+The service implements sophisticated limiting strategies that respect Spotify's API constraints while optimizing throughput:
+
+```cs
+// Rate limiting configuration respecting Spotify's ~160 requests per minute limit
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(_ =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter("global", _ =>
+            new FixedWindowRateLimiterOptions
+            {
+                Window = TimeSpan.FromMinutes(1),
+                PermitLimit = spotifySettings?.RateLimitPerMinute ?? 160,
+                QueueLimit = 100
+            });
+    });
+});
+```
+
+==== Multi-Level Caching Strategy with Cache-Aside Pattern
+
+The service implements a sophisticated three-tier caching strategy that prioritizes data availability over strict consistency, ensuring users receive music data even during external service outages.
+
+*Lazy Loading Implementation with Intelligent Fallback:*
+
+The core data retrieval method demonstrates the cache-aside pattern with graceful degradation:
 
 ```cs
 public async Task<TrackDetailDto> GetTrackAsync(string spotifyId)
 {
     var cacheKey = $"track:{spotifyId}";
     
-    // Level 1: Try Redis cache first
+    // Level 1: Redis Cache - Sub-millisecond Response
     var cachedTrack = await _cacheService.GetAsync<TrackDetailDto>(cacheKey);
     if (cachedTrack != null)
     {
-        _logger.LogInformation("Track {SpotifyId} retrieved from cache", spotifyId);
+        _logger.LogInformation("Track {SpotifyId} retrieved from Redis cache", spotifyId);
         return cachedTrack;
     }
 
-    // Level 2: Try MongoDB (even if expired - better stale data than no data)
+    // Level 2: MongoDB Persistent Storage - Valid or Expired Data
     var track = await _catalogRepository.GetTrackBySpotifyIdAsync(spotifyId);
     if (track != null)
     {
         var trackDto = TrackMapper.MapTrackEntityToDto(track);
         
-        // Always cache what we have, regardless of expiration
+        // Always cache available data regardless of expiration status
         await _cacheService.SetAsync(cacheKey, trackDto, 
             TimeSpan.FromMinutes(_spotifySettings.CacheExpirationMinutes));
 
         // Return immediately if data is still valid
         if (DateTime.UtcNow < track.CacheExpiresAt)
+        {
+            _logger.LogInformation("Track {SpotifyId} retrieved from MongoDB cache", spotifyId);
             return trackDto;
+        }
+        
+        // Data expired but available - continue to attempt refresh
+        _logger.LogInformation("Track {SpotifyId} expired, attempting Spotify refresh", spotifyId);
     }
 
-    // Level 3: Try Spotify API (with graceful fallback)
+    // Level 3: Spotify API - Fresh Data Retrieval
     var spotifyTrack = await _spotifyApiClient.GetTrackAsync(spotifyId);
     
-    // Critical resilience: If Spotify fails and we have ANY data, use it
+    // Critical Resilience: Prefer stale data over service unavailability
     if (spotifyTrack == null && track != null)
     {
-        _logger.LogWarning("Spotify API unavailable for {SpotifyId}, using existing data", spotifyId);
+        _logger.LogWarning("Spotify API unavailable for {SpotifyId}, returning existing data", spotifyId);
         return TrackMapper.MapTrackEntityToDto(track);
     }
 
@@ -415,17 +518,224 @@ public async Task<TrackDetailDto> GetTrackAsync(string spotifyId)
         var result = TrackMapper.MapToTrackDetailDto(spotifyTrack, trackEntity.Id);
         await _cacheService.SetAsync(cacheKey, result, 
             TimeSpan.FromMinutes(_spotifySettings.CacheExpirationMinutes));
+        
+        _logger.LogInformation("Track {SpotifyId} refreshed from Spotify API", spotifyId);
         return result;
     }
 
-    return null; // Complete failure - no data available anywhere
+    // Complete failure - no data available from any source
+    _logger.LogError("Unable to retrieve track {SpotifyId} from any source", spotifyId);
+    return null;
 }
 ```
 
-*Resilience Pattern Benefits:*
-- *Always-Available Data:* Prioritizes stale data over service unavailability
-- *Multi-Level Fallback:* Three-tier caching strategy minimizes external API dependency
-- *Graceful Degradation:* System continues functioning even during complete Spotify outages
+*Data Persistence Strategy:*
+
+The MongoDB schema design mirrors Spotify's JSON structure while adding intelligent caching metadata:
+
+```cs
+public abstract class CatalogItemBase
+{
+    public Guid Id { get; set; }                    // Internal catalog identifier
+    public string SpotifyId { get; set; }           // Spotify unique identifier
+    public string Name { get; set; }                // Item display name
+    public string ThumbnailUrl { get; set; }        // Optimized image URL
+    public int? Popularity { get; set; }            // Spotify popularity ranking
+    public DateTime LastAccessed { get; set; }      // Access pattern tracking
+    public DateTime CacheExpiresAt { get; set; }    // Intelligent cache management
+}
+
+public class Track : CatalogItemBase
+{
+    public int DurationMs { get; set; }             // Track duration in milliseconds
+    public bool IsExplicit { get; set; }            // Content rating information
+    public string AlbumId { get; set; }             // Related album reference
+    public string ArtistName { get; set; }          // Primary artist name for search
+    public List<SimplifiedArtist> Artists { get; set; } // Complete artist information
+    public string PreviewUrl { get; set; }          // 30-second preview audio URL
+    public List<string> AvailableMarkets { get; set; } // Geographic availability
+}
+```
+
+==== Intelligent Search with Local Fallback Implementation
+
+In case Spotify's search API becomes unavailable, the service seamlessly transitions to local catalog search, demonstrating resilience that maintain functionality under adverse conditions.
+
+*Search Hierarchy with Graceful Degradation:*
+
+```cs
+public async Task<SearchResultDto> SearchAsync(string query, string type, int limit = 20, 
+    int offset = 0, string market = null)
+{
+    var cacheKey = $"search:{query}:{type}:{limit}:{offset}:{market ?? "none"}";
+
+    // Primary: Check cache for recent search results
+    var cachedResult = await _cacheService.GetAsync<SearchResultDto>(cacheKey);
+    if (cachedResult != null)
+    {
+        _logger.LogInformation("Search results for query '{Query}' retrieved from cache", query);
+        return cachedResult;
+    }
+
+    // Secondary: Attempt Spotify API search for fresh results
+    try 
+    {
+        var searchResponse = await _spotifyApiClient.SearchAsync(query, type, limit, offset);
+        if (searchResponse != null)
+        {
+            var result = MapToSearchResultDto(searchResponse, query, type, limit, offset);
+            await _cacheService.SetAsync(cacheKey, result, TimeSpan.FromMinutes(5));
+            _logger.LogInformation("Search query '{Query}' completed via Spotify API", query);
+            return result;
+        }
+    }
+    catch (Exception ex)
+    {
+        _logger.LogWarning(ex, "Spotify API search failed for '{Query}'. Falling back to local catalog", query);
+    }
+
+    // Tertiary: Fallback to local MongoDB catalog search
+    _logger.LogInformation("Performing local catalog search for query '{Query}'", query);
+    var localResult = await _localSearchRepository.SearchLocalCatalogAsync(query, type, limit, offset);
+    
+    // Cache local results to improve performance for repeated searches
+    await _cacheService.SetAsync(cacheKey, localResult, TimeSpan.FromMinutes(5));
+    
+    return localResult;
+}
+```
+
+*Local Search Implementation:*
+
+The local search capability provides sophisticated querying against the MongoDB catalog using regex patterns and multi-field matching:
+
+```cs
+public async Task<SearchResultDto> SearchLocalCatalogAsync(string query, string type, int limit = 20, int offset = 0)
+{
+    var result = new SearchResultDto { Query = query, Type = type, Limit = limit, Offset = offset };
+    var normalizedQuery = query.ToLower();
+    var types = type.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+    foreach (var searchType in types)
+    {
+        switch (searchType.ToLower())
+        {
+            case "track":
+                var trackFilter = Builders<Track>.Filter.Or(
+                    Builders<Track>.Filter.Regex(t => t.Name, new BsonRegularExpression(normalizedQuery, "i")),
+                    Builders<Track>.Filter.Regex(t => t.ArtistName, new BsonRegularExpression(normalizedQuery, "i"))
+                );
+                var tracks = await _tracksCollection.Find(trackFilter).Skip(offset).Limit(limit).ToListAsync();
+                result.Tracks = tracks.Select(TrackMapper.MapToTrackSummaryDto).ToList();
+                result.TotalResults += result.Tracks.Count;
+                break;
+
+            case "album":
+                var albumFilter = Builders<Album>.Filter.Or(
+                    Builders<Album>.Filter.Regex(a => a.Name, new BsonRegularExpression(normalizedQuery, "i")),
+                    Builders<Album>.Filter.Regex(a => a.ArtistName, new BsonRegularExpression(normalizedQuery, "i"))
+                );
+                var albums = await _albumsCollection.Find(albumFilter).Skip(offset).Limit(limit).ToListAsync();
+                result.Albums = albums.Select(AlbumMapper.MapToAlbumSummaryDto).ToList();
+                result.TotalResults += result.Albums.Count;
+                break;
+
+            case "artist":
+                var artistFilter = Builders<Artist>.Filter.Regex(a => a.Name, new BsonRegularExpression(normalizedQuery, "i"));
+                var artists = await _artistsCollection.Find(artistFilter).Skip(offset).Limit(limit).ToListAsync();
+                result.Artists = artists.Select(ArtistMapper.MapToArtistSummaryDto).ToList();
+                result.TotalResults += result.Artists.Count;
+                break;
+        }
+    }
+
+    _logger.LogInformation("Local search for '{Query}' returned {Count} results", query, result.TotalResults);
+    return result;
+}
+```
+
+==== Error Handling with Always-Available Data Philosophy
+
+The service implements a unique approach to error handling that prioritizes data availability over strict error reporting, ensuring users receive meaningful responses even under failure conditions.
+
+*Resilient API Error Management:*
+
+```cs
+protected async Task<IActionResult> ExecuteApiAction<T>(
+    Func<Task<T>> action, string errorMessage, string resourceId = null) where T : class
+{
+    try
+    {
+        var result = await action();
+        return result == null ? NotFound() : Ok(result);
+    }
+    catch (SpotifyAuthorizationException ex)
+    {
+        // Return 200 OK with stale data warning instead of 401/403 error
+        // This allows client to continue functioning with cached data
+        return StatusCode(StatusCodes.Status200OK, new
+        {
+            Message = "Data may not be current due to Spotify API authentication issues",
+            IsStale = true,
+            ErrorCode = "AuthorizationError",
+            Data = default(T)
+        });
+    }
+    catch (SpotifyRateLimitException ex)
+    {
+        // Return success with warning rather than 429 error
+        return StatusCode(StatusCodes.Status200OK, new
+        {
+            Message = "Data may not be current due to Spotify API rate limiting",
+            IsStale = true,
+            ErrorCode = "RateLimitExceeded",
+            Data = default(T)
+        });
+    }
+    catch (SpotifyApiException ex)
+    {
+        // Even on API errors, attempt to return cached data
+        return StatusCode(StatusCodes.Status200OK, new
+        {
+            Message = "Data may not be current due to Spotify API issues",
+            IsStale = true,
+            ErrorCode = "SpotifyApiError",
+            Data = default(T)
+        });
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Unexpected error in {ErrorMessage} for resource {ResourceId}", 
+            errorMessage, resourceId);
+        return StatusCode(StatusCodes.Status500InternalServerError, new
+        {
+            Message = "An unexpected error occurred",
+            ErrorCode = "InternalError"
+        });
+    }
+}
+```
+
+==== Three-Layer Architecture Benefits for Gateway Pattern
+
+The decision to implement a simplified three-layer architecture instead of full Clean Architecture reflects the service's specific role as an intelligent proxy rather than a complex business domain service.
+
+*Architectural Justification:*
+
+1. *Simplified Domain Model:* No complex business rules or domain entities - primarily data transformation and caching logic
+2. *External Service Focus:* Core functionality revolves around external API integration rather than internal business processes
+3. *Performance Optimization:* Direct service-to-repository communication eliminates unnecessary abstraction overhead
+4. *Proxy Pattern Implementation:* Architecture optimized for request forwarding, caching, and fallback scenarios
+
+*Layer Responsibilities:*
+
+```
+API Layer (Controllers, Error Handling, Rate Limiting)
+├── Core Layer (Services, DTOs, Interfaces, Business Logic)
+└── Infrastructure Layer (Repositories, Cache, External APIs, Data Mapping)
+```
+
+This architectural approach enables the service to maintain exceptional performance while providing robust fallback capabilities, ensuring users always receive music data regardless of external service availability. The intelligent caching and local search capabilities transform what could be a simple proxy into a resilient, always-available music catalog gateway that enhances rather than merely transmits external data.
 
 === Music Interaction Service Implementation
 
