@@ -168,6 +168,156 @@ public class User
 - *Encapsulation:* Private setters prevent unauthorized state modifications
 - *Factory Pattern:* `Create` method ensures valid object construction
 - *Business Logic Concentration:* Domain methods contain business rules rather than scattered across services
+- *Immutable Collections:* ReadOnlyCollection prevents external manipulation of social relationships
+
+==== Database Schema Design and Entity Relationships
+
+The User Service implements a sophisticated relational database design that supports complex social interactions while maintaining referential integrity and query performance.
+
+#figure(
+  image("../diagrams/UserService_Data.png", width: 90%),
+  caption: [User Service PostgreSQL data diagraming showing relationships between the Entities],
+) <fig:lazy-loading-pattern>
+
+
+*Core Database Schema:*
+
+The database schema centers around the `users` table as the primary entity, with supporting tables for social features and user personalization:
+
+```
+users (id, email, username, name, surname, auth0_id, avatar_url, bio, created_at, updated_at)
+├── user_subscriptions (follower_id, followed_id, created_at)
+│   ├── UNIQUE constraint (follower_id, followed_id)
+│   ├── Foreign key to users(id) as follower
+│   └── Foreign key to users(id) as followed
+└── user_preferences (user_id, item_type, spotify_id, created_at)
+    ├── UNIQUE constraint (user_id, item_type, spotify_id)
+    └── Foreign key to users(id)
+```
+
+*Social Graph Implementation:*
+
+The user subscription system implements a many-to-many relationship through the `user_subscriptions` table, creating a bidirectional social graph:
+
+```cs
+public class UserSubscription
+{
+    public Guid FollowerId { get; set; }
+    public Guid FollowedId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    
+    public virtual User Follower { get; set; }
+    public virtual User Followed { get; set; }
+}
+```
+
+This design enables efficient queries for both followers and following relationships:
+- `User.Followers` → Users who follow this user (FollowedId = User.Id)
+- `User.Following` → Users this user follows (FollowerId = User.Id)
+
+*User Preferences Architecture:*
+
+The preferences system uses a flexible design supporting multiple music item types:
+
+```cs
+public class UserPreference
+{
+    public Guid UserId { get; set; }
+    public ItemType ItemType { get; set; } // Artist, Album, Track
+    public string SpotifyId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    
+    public virtual User User { get; set; }
+}
+```
+
+This enables users to maintain favorite artists, albums, and tracks with efficient querying and duplicate prevention through composite unique constraints.
+
+==== Auth0 Integration Architecture and External Identity Management
+
+The User Service implements sophisticated external authentication integration with Auth0 while maintaining clean architecture principles and domain integrity.
+
+*Auth0Id as Domain Concept:*
+
+The inclusion of `Auth0Id` in the User domain entity represents a deliberate architectural decision that balances clean architecture principles with practical authentication requirements. The Auth0Id serves as an external identity correlation mechanism, representing a valid domain concept rather than an infrastructure concern.
+
+#figure(
+  image("../screenshots/auth-user.png", width: 90%),
+  caption: [Auth0 Dashboarding showing the created user with proper roles and permissions assigned],
+) <fig:lazy-loading-pattern>
+
+
+*Authentication Flow Implementation:*
+
+The authentication flow demonstrates the integration between external authentication and internal domain logic:
+
+1. *User Registration/Login* via Auth0 (Google OAuth, email/password)
+2. *User Creation* in Auth0 via Management API with role assignment
+3. *JWT Token Generation* containing Auth0Id and permissions
+4. *Local User Creation* with Auth0Id correlation
+5. *Request Authentication* through JWT validation and user resolution
+
+*JWT Token Structure and Claims:*
+
+When users authenticate, they receive a JWT token containing identity and authorization information:
+
+```json
+{
+  "iss": "https://dev-mzz3213hmoa2myip.us.auth0.com/",
+  "sub": "google-oauth2|115179652116484392346",
+  "aud": ["https://api.beatrate.app/"],
+  "permissions": [
+    "read:profiles", "write:profiles",
+    "read:reviews", "write:reviews",
+    "read:interactions", "write:interactions"
+  ]
+}
+```
+
+*Request Authentication:*
+
+The authentication demonstrates how external identity integrates with internal domain logic:
+
+```cs
+// Controller Authentication
+var auth0UserId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+var query = new GetUserProfileQuery(auth0UserId);
+var userProfile = await _mediator.Send(query);
+
+// Repository Implementation
+public async Task<User> GetByAuth0IdAsync(string auth0Id)
+{
+    return await _context.Users
+        .Include(u => u.Followers)
+        .Include(u => u.Following)
+        .FirstOrDefaultAsync(u => u.Auth0Id == auth0Id);
+}
+```
+
+*Role and Permission Management:*
+
+The system implements comprehensive authorization through Auth0 role management:
+
+```cs
+private async Task AssignRoleToUserAsync(string userId)
+{
+    var defaultRoleId = "rol_ELrBo6tr0kx7blQ9"; // User role
+    var roleAssignmentRequest = new { roles = new[] { defaultRoleId } };
+    
+    var response = await _httpClient.PostAsJsonAsync(
+        $"https://{_settings.Domain}/api/v2/users/{userId}/roles", 
+        roleAssignmentRequest);
+}
+```
+
+*Architectural Benefits:*
+
+This integration approach provides several key advantages:
+- *Centralized Authorization:* Permissions managed in Auth0 for consistency across services
+- *Stateless Authentication:* JWT contains all necessary claims for request processing
+- *Clean Architecture Compliance:* Auth0Id represents domain identity without infrastructure dependency
+- *Scalable Role Management:* Easy addition and modification of permissions through Auth0
+- *Cross-Service Authorization:* Other microservices validate the same JWT tokens
 
 === CQRS Implementation with Comprehensive Validation
 
@@ -212,7 +362,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 }
 ```
 
-=== Music Catalog Service: Resilient Fallback Architecture
+
+=== Music Catalog Service: Intelligent Music Catalog Gateway
 
 The Catalog Service implements sophisticated fallback strategies ensuring data availability even when external services fail:
 
