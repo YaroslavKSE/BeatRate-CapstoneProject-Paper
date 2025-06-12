@@ -1,5 +1,7 @@
 #import "../local-lib/template-thesis.typ": *
 #import "../metadata.typ": *
+#import "@preview/codly:1.3.0"
+
 #pagebreak()
 = Implementation <sec:impl>
 
@@ -115,7 +117,7 @@ The service implements sophisticated multi-level caching that prioritizes data a
 
 The User Service demonstrates sophisticated domain modeling with encapsulated business logic and clear separation of concerns:
 
-```csharp
+```cs
 public class User
 {
     public Guid Id { get; private set; }
@@ -171,7 +173,7 @@ public class User
 
 The application layer implements Command Query Responsibility Segregation with robust validation pipelines:
 
-```csharp
+```cs
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
 {
     private readonly IUserRepository _userRepository;
@@ -214,7 +216,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 
 The Catalog Service implements sophisticated fallback strategies ensuring data availability even when external services fail:
 
-```csharp
+```cs
 public async Task<TrackDetailDto> GetTrackAsync(string spotifyId)
 {
     var cacheKey = $"track:{spotifyId}";
@@ -286,7 +288,7 @@ The Music Interaction Service represents our most architecturally complex compon
 
 This service is structured around Clean Architecture, enforcing a strict separation between domain logic, application workflows, infrastructure, and external interfaces. The IGradable interface in the domain layer abstracts both simple and complex grading strategies, allowing polymorphic interaction handling:
 
-```csharp
+```cs
 // Domain Layer - Core business logic
 public interface IGradable
 {
@@ -299,7 +301,7 @@ public interface IGradable
 
 All core business rules, such as grading and review creation, are encapsulated within the InteractionsAggregate entity, which acts as the domain aggregate root:
 
-```csharp
+```cs
 public class InteractionsAggregate
 {
     public Guid AggregateId { get; private set; }
@@ -330,7 +332,7 @@ Our dual rating system represents a significant innovation in music evaluation p
 *Simple Rating Flow:* Direct grade assignment with automatic normalization to 1-10 scale
 *Complex Rating Flow:* Template retrieval from MongoDB → User input application → Hierarchical calculation → PostgreSQL storage
 
-```csharp
+```cs
 public class ComplexInteractionGrader
 {
     public async Task<bool> ProcessComplexGrading(InteractionsAggregate interaction,
@@ -438,7 +440,7 @@ The service implements a sophisticated background statistics calculation system 
 
 *Real-time Stats Marking:* When users interact with music items (rate, review, or like), the system immediately marks the item as requiring statistics recalculation:
 
-```csharp
+```cs
 // Mark item for background processing
 await _itemStatsStorage.MarkItemStatsAsRawAsync(itemId);
 ```
@@ -453,7 +455,7 @@ await _itemStatsStorage.MarkItemStatsAsRawAsync(itemId);
 
 4. *Average Calculation:* Computes weighted average rating across all user submissions
 
-```csharp
+```cs
 // Core calculation logic
 var userLatestInteractions = interactions
     .GroupBy(i => i.UserId)
@@ -499,7 +501,7 @@ foreach (var rating in ratings)
 
 The service integrates a trending content mechanism using a custom "Hot Score" algorithm, which weights engagement by recency and type of interaction:
 
-```csharp
+```cs
 public class ReviewHotScoreCalculator
 {
     private readonly float _likeWeight = 1.0f;
@@ -527,7 +529,7 @@ public class ReviewHotScoreCalculator
 
 For features such as likes, the service ensures integrity with validation, idempotency checks, and hot score recalculations:
 
-```csharp
+```cs
 public async Task<ReviewLike> AddReviewLike(Guid reviewId, string userId)
 {
     // Check if the review exists
@@ -573,7 +575,7 @@ The Music Lists Service enables comprehensive music curation and social sharing 
 
 At its core, the List entity encapsulates the list type, metadata, ranking logic, and a collection of items:
 
-```csharp
+```cs
 public class List
 {
     public Guid ListId { get; set; }
@@ -627,7 +629,7 @@ This design allows the system to efficiently answer queries like "show me all li
 
 The system supports ranked and unranked lists with dynamic item placement and shifting logic:
 
-```csharp
+```cs
 public async Task<int> InsertListItemAsync(Guid listId, string spotifyId, int? position)
 {
     using var transaction = await _dbContext.Database.BeginTransactionAsync();
@@ -695,7 +697,7 @@ The Music Lists Service leverages the same social interaction infrastructure est
 
 The service implements sophisticated pagination and search strategies:
 
-```csharp
+```cs
 public async Task<PaginatedResult<ListWithItemCount>> GetListsByUserIdAsync(
     string userId, int? limit = null, int? offset = null, string? listType = null)
 {
@@ -916,7 +918,7 @@ jobs:
 *Swagger/OpenAPI Integration:*
 All microservices implement comprehensive API documentation using Swagger/OpenAPI specifications:
 
-```csharp
+```cs
 // Program.cs - Swagger Configuration
 builder.Services.AddSwaggerGen(c =>
 {

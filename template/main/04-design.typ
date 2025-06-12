@@ -1,5 +1,6 @@
 #import "../local-lib/template-thesis.typ": *
 #import "../metadata.typ": *
+
 #pagebreak()
 = System Design and Architecture <sec:analysis>
 
@@ -158,7 +159,7 @@ Our dual rating system represents a significant technical innovation in music ev
 
 *Implementation Detail:*
 
-```csharp
+```cs
 builder.Services.AddRateLimiter(options =>
 {
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(_ =>
@@ -230,7 +231,7 @@ Our architecture implements minimal inter-service communication to maintain loos
 
 *Automated Migrations:* All services apply database migrations at startup with retry logic:
 
-```csharp
+```cs
 context.Database.Migrate();
 // Retry logic with 3 attempts and 5-second delays
 ```

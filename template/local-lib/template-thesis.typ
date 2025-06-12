@@ -4,6 +4,7 @@
 //
 #import "helpers.typ": *
 #import "pages-thesis.typ": *
+#import "@preview/codly:1.3.0": *
 
 #let thesis(
   option: (
@@ -205,8 +206,26 @@
     fallback: true,
     lang: option.lang
   )
+  
   // paragraph
   show par: set par(spacing: 1em)
+  
+  show: codly-init.with()
+
+  codly(
+    languages: (
+      csharp: (name: "C#", icon: none, color: rgb("#239120")),
+      cs: (name: "C#", icon: none, color: rgb("#239120")),
+      javascript: (name: "JavaScript", icon: none, color: rgb("#f7df1e")),
+      typescript: (name: "TypeScript", icon: none, color: rgb("#3178c6")),
+      yaml: (name: "YAML", icon: none, color: rgb("#cb171e")),
+      json: (name: "JSON", icon: none, color: rgb("#000000")),
+    ),
+    number-format: none,
+    zebra-fill: none,
+    stroke: 1pt + code-border,
+    display-icon: false,
+  )
 
   // heading
   show heading: set block(above: 1.2em, below: 1.2em)
@@ -241,7 +260,7 @@
   set raw(syntaxes:"syntax/VHDL.sublime-syntax")
   set raw(syntaxes:"syntax/riscv.sublime-syntax")
 
-  show raw.where(block: false): set text(weight: "semibold")
+  //show raw.where(block: false): set text(weight: "semibold")
   //show raw.where(block: false): it => {
   //  highlight(
   //    fill:code-bg,
@@ -249,17 +268,17 @@
   //    bottom-edge: "bounds",
   //    extent:1pt, it)
   //}
-  show raw.where(block: true): set text(size: tiny)
-  show raw.where(block: true): it => {
-    block(
-      fill: code-bg,
-      width:100%,
-      inset: 10pt,
-      radius: 4pt,
-      stroke: 0.1pt + code-border,
-      it,
-    )
-  }
+  // show raw.where(block: true): set text(size: tiny)
+  // show raw.where(block: true): it => {
+  //   block(
+  //     fill: code-bg,
+  //     width:100%,
+  //     inset: 10pt,
+  //     radius: 4pt,
+  //     stroke: 0.1pt + code-border,
+  //     it,
+  //   )
+  // }
 
   // Title page
   page-title-thesis(

@@ -28,8 +28,8 @@
 // Metadata of the document
 //
 #let doc= (
-  title    : "Capstone Project",
-  subtitle : "BeatRate Web Application",
+  title    : "BeatRate",
+  subtitle : "Social Network for Music Evaluation",
   // Primary author for document metadata
   author: (
     name        : "Yaroslav Khomych & Maksym Pozdnyakov",

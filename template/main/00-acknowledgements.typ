@@ -15,7 +15,7 @@ I would also like to acknowledge Andrii Podkolzin, who provided me with an overv
 
 I must also mention Dmytro Nomirovskiy for conducting the most challenging mathematics courses and examinations of my entire academic career. While I struggled considerably during your classes, I take satisfaction in passing them on my first attempt. My sincere appreciation goes to Vadym Yeremenko for his clear explanations of Paradigms, Networking, and C++ development.
 
-Last but not least, I wish to thank Yegor Stadnyi, First Vice-Rector of KSE, who became someone I could approach to discuss all aspects of KSE while receiving excellent advice on studying and general feedback. Yegor delivered our inaugural lecture, providing our first introduction to studying at KSE and academic integrity principles. He played a pivotal role in shaping my approach to learning and understanding how effective processes should operate in any field.
+Last but not least, I wish to thank Yegor Stadnyi, Vice President of KSE, who became someone I could approach to discuss all aspects of KSE while receiving excellent advice on studying and general feedback. Yegor delivered our inaugural lecture, providing our first introduction to studying at KSE and academic integrity principles. He played a pivotal role in shaping my approach to learning and understanding how effective processes should operate in any field.
 
 Finally, I express gratitude to KSE President Tymofiy Mylovanov for this remarkable institution. This place provided me with knowledge, meaningful relationships, and friendships that I gained by choosing to study here. I am pleased to proudly declare myself among the first bachelor's degree recipients that KSE graduated.
 

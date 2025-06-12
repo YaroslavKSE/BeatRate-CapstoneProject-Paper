@@ -22,7 +22,7 @@ Through systematic analysis of these questions, we establish the functional requ
 
 === Global Music Streaming Landscape
 
-The music evaluation platform market operates within the broader context of the global music streaming industry, which demonstrates significant growth potential. According to #cite(<statistaMusicStreaming2024>), the global music streaming market is projected to reach US\$35.45 billion in 2025, with a steady compound annual growth rate (CAGR) of 4.90% between 2025 and 2029. The United States maintains its position as the dominant market player, anticipated to generate US\$13,910 million in revenue by 2025.
+The music evaluation platform market operates within the broader context of the global music streaming industry, which demonstrates significant growth potential. The global music streaming market demonstrates significant growth potential, with projected revenue reaching US\$35.45 billion in 2025 #cite(<statistaMusicStreaming2024>). Market analysis indicates a steady compound annual growth rate (CAGR) of 4.90% between 2025 and 2029.
 
 User adoption metrics reveal promising expansion trajectories, with the global user base expected to reach 1.2 billion by 2029. This growth is accompanied by evolving consumer preferences, particularly evident in the increasing emphasis on personalization and curated content delivery. The industry's shift toward tailored listening experiences reflects a fundamental transformation in how consumers interact with music streaming services, suggesting opportunities for platforms that facilitate deeper engagement with musical content.
 
@@ -33,7 +33,7 @@ User adoption metrics reveal promising expansion trajectories, with the global u
 
 === Music Rating Platform Market Analysis
 
-Our analysis of the current market leaders reveals significant user engagement and growth potential in the music evaluation sector. Based on comprehensive data from #cite(<similarwebWebsiteAnalysis2024>), we identified three primary platforms that align with our core requirements: Rate Your Music (RYM), Album of the Year (AOTY), and Musicboard.
+Our analysis of the current market leaders reveals significant user engagement and growth potential in the music evaluation sector. Based on comprehensive data from SimilarWeb #cite(<similarwebWebsiteAnalysis2024>), we identified three primary platforms that align with our core requirements: Rate Your Music (RYM), Album of the Year (AOTY), and Musicboard.
 
 *Market Leadership and User Engagement:*
 
@@ -65,7 +65,7 @@ The platforms show robust organic growth, with Rate Your Music capturing 48.17% 
 
 Through our systematic analysis, we identified distinct categories of platforms based on their architectural approaches and feature focus:
 
-*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on complex cataloging and basic rating functionality #cite(<rateYourMusic>). These platforms typically employ monolithic architectures with extensive relational databases but limited social interaction capabilities. RYM utilizes basic web technologies including Google Analytics and PayPal integration, but users frequently report query failures and timeouts, suggesting significant backend infrastructure limitations.
+*Traditional Database-Driven Platforms:* Platforms like Rate Your Music represent the traditional approach, focusing primarily on complex cataloging and basic rating functionality #cite(<rateYourMusic>). While RYM doesn't publicly disclose its technology stack, available evidence suggests significant infrastructure challenges. Third-party analysis tools indicate RYM utilizes basic web technologies including Google Analytics and PayPal integration #cite(<similarwebAnalysisTools>). More significantly, users consistently report query failures and timeouts, with one Reddit user commenting as a Data Services Architect: "An awful lot of queries fail or timeout, there's little validation on the calls, and there's not much in the way of a usable API" and suggesting that "RateYourMusic badly needs a Data Services Architect" to address fundamental infrastructure limitations #cite(<redditrymdisccusion>). 
 
 *Aggregator-Style Platforms:* Album of the Year follows an aggregator model similar to Metacritic, distinguishing between critic scores and user scores #cite(<albumOfTheYear>). This approach emphasizes editorial content alongside user-generated reviews but often lacks social features. AOTY employs a mixed technology stack with JavaScript/jQuery frontend and PHP backend, supplemented by Ruby-based Discourse forums, utilizing multiple web servers including LiteSpeed and Nginx for performance optimization.
 
