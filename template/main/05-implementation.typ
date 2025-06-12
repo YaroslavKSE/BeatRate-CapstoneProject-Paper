@@ -888,6 +888,11 @@ GradingBlocks (EntityId, Name, MinGrade, MaxGrade, Grade)
 └── GradingBlockActions (ActionNumber, ActionType)
 ```
 
+#figure(
+  image("../diagrams/music-interaction.png", width: 90%),
+  caption: [Music Interaction Microservice PostgreSQL DB Structure],
+) <fig:music-interaction-postgres>
+
 *Performance Optimizations:*
 - *Composite Indices:* (UserId, ItemId, CreatedAt) for efficient user interaction queries
 - *Descending Index:* HotScore for efficient trending content retrieval
@@ -1077,6 +1082,11 @@ Lists (ListId, UserId, ListType, ListName, ListDescription, IsRanked, HotScore, 
 ├── ListLikes (LikeId, ListId, UserId, LikedAt)
 └── ListComments (CommentId, ListId, UserId, CommentedAt, CommentText)
 ```
+
+#figure(
+  image("../diagrams/music-lists.png", width: 80%),
+  caption: [Music Lists Microservice PostgreSQL DB Structure],
+) <fig:music-lists-postgres>
 
 *Key Performance Optimizations:*
 - *Separate Item Storage:* ListItems table allows efficient querying of all lists containing a specific music item
