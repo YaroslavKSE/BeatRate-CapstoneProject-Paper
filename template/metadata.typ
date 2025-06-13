@@ -33,7 +33,7 @@
   // Primary author for document metadata
   author: (
     name        : "Yaroslav Khomych & Maksym Pozdnyakov",
-    email       : "ikhomych@kse.org.ua",
+    email       : "ikhomych@kse.org.ua, mpozdniakov@kse.org.ua",
     degree      : "Bachelor",
     affiliation : "KSE",
     place       : "Kyiv",
@@ -52,13 +52,13 @@
       signature   : image("resources/img/yaroslav-signature.png", width:auto),
     ),
     (
-      name        : "Maksym Pozdnyakov",
-      email       : "mpozdnyakov@kse.org.ua",
+      name        : "Maksym Pozdniakov",
+      email       : "mpozdniakov@kse.org.ua",
       degree      : "Bachelor",
       affiliation : "KSE",
       place       : "Kyiv",
       url         : "https://github.com/qualia4",
-      signature   : image("resources/img/signature.svg", width:auto),
+      signature   : image("resources/img/maksym-signature.png", width:auto),
     )
   ),
   keywords : ("KSE", "Software Engineering", "BeatRate", "Web Application", "Music Evaluation Platform", "Social Music Discovery", "Microservices Architecture", "Spotify API Integration", "Rating Systems", "Cloud Deployment"),
