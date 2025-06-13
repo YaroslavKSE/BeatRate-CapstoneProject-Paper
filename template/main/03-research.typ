@@ -45,7 +45,7 @@ Musicboard, as a newer entrant, attracts close to 300,000 monthly visits but rep
 
 #figure(
   image("../local-lib/img/traffic-and-engagement.png", width: 80%),
-  caption: [Market Leadership and User Engagement Metrics],
+  caption: [Market Leadership and User Engagement Metrics #cite(<duarteMusicStreamingStats2025>)],
 ) <fig:market-leaders>
 
 *Geographic Distribution and Growth Indicators:*

@@ -223,7 +223,7 @@ Microservices architecture enables independent scaling based on service-specific
 
 === Prototype Testing Summary
 
-We conducted comprehensive user testing with 10 participants across multiple sprint cycles. The testing process involved both supervised interviews and unmoderated exploration sessions, providing valuable insights into platform usability and functionality.
+We conducted comprehensive user testing with 10 participants across multiple sprint cycles. The testing process involved both supervised interviews and unmoderated exploration sessions, providing valuable insights into platform usability and functionality #cite(<prototypeTestingUserInterviews2025>).
 
 *Overall User Feedback:*
 

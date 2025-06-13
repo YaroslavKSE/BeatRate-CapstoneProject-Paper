@@ -7,7 +7,7 @@
 
 The implementation of BeatRate represents the culmination of our system design, translating architectural specifications into working code across multiple microservices and a modern web frontend. This chapter documents our development methodology, architectural patterns, critical code implementations, and deployment strategies that transformed our design vision into a fully functional music evaluation platform.
 
-The complete source code for BeatRate is publicly available #cite(<beatrateRepository2024>), demonstrating our implementation of the architectural patterns and design decisions documented throughout this thesis.
+The complete source code for BeatRate is publicly available #cite(<beatrateRepository2025>), demonstrating our implementation of the architectural patterns and design decisions documented throughout this thesis.
 
 == Development Methodology and Team Organization
 
