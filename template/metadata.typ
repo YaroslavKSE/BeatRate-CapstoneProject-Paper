@@ -84,9 +84,9 @@
   email: "vyaremenko@kse.org.ua",
 )
 #let expert= (
-  affiliation: "KSE",
-  name: "Artem Korotenko, Technical Lead",
-  email: "akorotenko@kse.org.ua",
+  affiliation: "SoftServe",
+  name: "Volodymyr Durunda, Technical Lead",
+  email: "vduru@softserveinc.com",
 )
 #let school= (
   name: none,
@@ -110,7 +110,7 @@
 }
 
 #let date = (
-  submission: datetime(year: 2025, month: 8, day: 14),
+  submission: datetime(year: 2025, month: 6, day: 13),
   mid-term-submission: datetime(year: 2025, month: 5, day: 2),
   today: datetime.today(),
 )
