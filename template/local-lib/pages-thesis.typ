@@ -287,6 +287,7 @@ if school != none {
 
 #let page-reportinfo(
   author: (),
+  authors: (),  // New parameter for multiple authors
   date: none,
   lang: "en",
 ) = {
@@ -294,51 +295,87 @@ if school != none {
     #v(10em)
   ]
   heading(numbering:none, outlined: false)[#i18n("report-info", lang: lang)]
-  // heading(numbering:none, outlined: false)[*#i18n("contact-info", lang: lang)*]
-
-  // table(
-  //   columns: (auto, auto),
-  //   stroke: none,
-  //   align: left + top,
-  //   table.cell(rowspan: 3)[#if author.email != none {[#i18n("author", lang: lang):]}], [#author.name],
-  //   [#author.degree #if author.degree != none {[#i18n("student", lang: lang)]}],
-  //   [#author.affiliation],
-  //   [#if author.email != none {[#i18n("email", lang: lang):]}], [#link("mailto:author.email")[#author.email]],
-  // )
 
   v(3em)
   [
-    //*#i18n("declaration-title", lang: lang)* \
-    // #i18n("declaration-text", lang: lang)
-    // - #i18n("declaration-text", lang: lang)
-    // - #i18n("declaration-text", lang: lang)
-    // - #i18n("declaration-text", lang: lang)
-    
-I, undersigned, hereby declare that this capstone project is the result of my own work.
+We, undersigned, hereby declare that this capstone project is the result of my own work.
 
   - All ideas, data, figures and text from other authors have been clearly cited and listed in the bibliography.
   - No part of this project has been submitted previously for academic credit in this or any other institution.
   - All code, diagrams, and third-party materials are either my original work or are used with permission and properly referenced.
-  - I have not engaged in plagiarism or any form of academic dishonesty.
+  - We have not engaged in plagiarism or any form of academic dishonesty.
   - Any assistance received (e.g. from peers, tutors, or online forums) is acknowledged in the acknowledgements section.
 
-  I understand that failure to comply with these declarations constitutes academic misconduct and may lead to disciplinary action.
+  We understand that failure to comply with these declarations constitutes academic misconduct and may lead to disciplinary action.
 
   #v(5em)
 ]
 
-  table(
-    stroke: none,
-    columns: (auto,auto),
-    align: left + horizon,
-    [#i18n("declaration-signature-prefix", lang: lang)], [#author.place#if author.place != none{[,]} #date.display("[day].[month].[year]")],
-    [#i18n("declaration-signature", lang: lang)],
-    if author.signature != none {[
-      #v(0.5cm)
-      //#pad(x: 2.5em, author.signature)
-      #line(start: (0cm,-0cm),length:5cm)
-    ]} else {[
-      #line(start: (0cm,1.5cm),length:7cm)
-    ]},
-  )
+  // Handle signatures based on whether we have multiple authors or single author
+  let signature-section = if authors.len() > 0 {
+    // Multiple authors case
+    table(
+      stroke: none,
+      columns: (auto, auto),
+      align: left + horizon,
+      
+      // Date row
+      [#i18n("declaration-signature-prefix", lang: lang)], 
+      [
+        #if authors.at(0).place != none {authors.at(0).place + ", "} 
+        #date.display("[day].[month].[year]")
+      ],
+      
+      // Names row
+      [#i18n("declaration-signature", lang: lang)],
+      table(
+        stroke: none,
+        columns: (1fr, 1fr),
+        column-gutter: 2em,
+        align: center + horizon,
+        
+        // First author
+        [
+          #v(0.5cm)
+          #if authors.at(0).signature != none {
+            authors.at(0).signature
+          }
+          #line(start: (0cm, 0cm), length: 6cm)
+          #v(0.2cm)
+          #text(size: 10pt)[#authors.at(0).name]
+        ],
+        
+        // Second author (if exists)
+        [
+          #v(0.5cm)
+          #if authors.len() > 1 and authors.at(1).signature != none {
+            authors.at(1).signature
+          }
+          #line(start: (0cm, 0cm), length: 6cm)
+          #v(0.2cm)
+          #if authors.len() > 1 {
+            text(size: 10pt)[#authors.at(1).name]
+          }
+        ]
+      )
+    )
+  } else {
+    // Single author fallback case
+    table(
+      stroke: none,
+      columns: (auto, auto),
+      align: left + horizon,
+      [#i18n("declaration-signature-prefix", lang: lang)], 
+      [#author.place#if author.place != none{[,]} #date.display("[day].[month].[year]")],
+      [#i18n("declaration-signature", lang: lang)],
+      if author.signature != none {[
+        #v(0.5cm)
+        #line(start: (0cm,-0cm),length:5cm)
+      ]} else {[
+        #line(start: (0cm,1.5cm),length:7cm)
+      ]},
+    )
+  }
+
+  signature-section
 }

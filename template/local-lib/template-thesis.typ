@@ -328,6 +328,7 @@
   // pagebreak()
   page-reportinfo(
     author: doc.author,
+    authors: doc.authors,
     date: date.today,
     lang: option.lang,
   )
