@@ -28,7 +28,7 @@ User adoption metrics reveal promising expansion trajectories, with the global u
 
 #figure(
   image("../local-lib/img/music-streaming-chart.png", width: 80%),
-  caption: [Global Music Streaming Market Growth and Projections],
+  caption: [Global Music Streaming Market Growth and Projections #cite(<duarteMusicStreamingStats2025>)],
 ) <fig:streaming-market>
 
 === Music Rating Platform Market Analysis
@@ -45,7 +45,7 @@ Musicboard, as a newer entrant, attracts close to 300,000 monthly visits but rep
 
 #figure(
   image("../local-lib/img/traffic-and-engagement.png", width: 80%),
-  caption: [Market Leadership and User Engagement Metrics #cite(<duarteMusicStreamingStats2025>)],
+  caption: [Market Leadership and User Engagement Metrics #cite(<similarwebWebsiteAnalysis2024>)],
 ) <fig:market-leaders>
 
 *Geographic Distribution and Growth Indicators:*
@@ -135,7 +135,7 @@ Through our systematic analysis, we identified distinct categories of platforms 
 
 #figure(
   image("../screenshots/musicboard-track-page.png", width: 90%),
-  caption: [Musicboard interface demonstrating modern design principles but with intrusive advertisement placement that disrupts user flow],
+  caption: [Musicboard interface demonstrating modern design principles but with pop-up advertisement that disrupts user flow],
 ) <fig:musicboard-interface>
 
 
