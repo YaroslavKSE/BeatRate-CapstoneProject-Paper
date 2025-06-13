@@ -49,7 +49,7 @@
       affiliation : "KSE",
       place       : "Kyiv",
       url         : "https://github.com/YaroslavKSE",
-      signature   : image("resources/img/signature.svg", width:3cm),
+      signature   : image("resources/img/yaroslav-signature.png", width:auto),
     ),
     (
       name        : "Maksym Pozdnyakov",
@@ -58,7 +58,7 @@
       affiliation : "KSE",
       place       : "Kyiv",
       url         : "https://github.com/qualia4",
-      signature   : image("resources/img/signature.svg", width:3cm),
+      signature   : image("resources/img/signature.svg", width:auto),
     )
   ),
   keywords : ("KSE", "Software Engineering", "BeatRate", "Web Application", "Music Evaluation Platform", "Social Music Discovery", "Microservices Architecture", "Spotify API Integration", "Rating Systems", "Cloud Deployment"),
