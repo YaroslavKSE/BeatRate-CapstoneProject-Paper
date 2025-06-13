@@ -115,6 +115,10 @@ The service implements multi-level caching that prioritizes data availability:
 
 === User Service: Clean Architecture with Domain-Driven Design
 
+#infobox[
+*Collaborative Implementation Note:* This section details the User Service implementation developed by Yaroslav Khomych, demonstrating Auth0 integration for authorization and authentication, CQRS pattern implementation, extensive validation, relationship database design for social fetatures features
+]
+
 The User Service demonstrates sophisticated domain modeling with encapsulated business logic and clear separation of concerns:
 
 ```cs
@@ -319,7 +323,7 @@ This integration approach provides several key advantages:
 - *Scalable Role Management:* Easy addition and modification of permissions through Auth0
 - *Cross-Service Authorization:* Other microservices validate the same JWT tokens
 
-=== CQRS Implementation with Comprehensive Validation
+==== CQRS Implementation with FluentValidation
 
 The application layer implements Command Query Responsibility Segregation with robust validation pipelines:
 
