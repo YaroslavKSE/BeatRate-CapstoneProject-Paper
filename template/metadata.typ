@@ -139,7 +139,7 @@
 )
 
 #let gloss    = false
-#let appendix = false
+#let appendix = true
 #let bib = (
   display : true,
   path  : "bibliography.bib",
